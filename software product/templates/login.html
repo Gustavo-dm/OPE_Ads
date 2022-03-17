@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login Arquesys</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #fafeff;
+        }
+        .box-login{
+            width: 350px;
+            padding: 15px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%,-85%);
+            background: #37aac4;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .box-cadastro{
+            width: 150px;
+            padding: 20px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, 40%);
+            background: #37aac4;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .box-login input[type = "text"],.box-login input[type = "password"],.box-login input[type = "email"]{
+            border:0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de ;
+            padding: 14px 10px;
+            width: 200px;
+            outline: none;
+            color: white;
+            transition: 0.50s;
+            border-radius: 5px;
+        }
+        .box-login input[type = "submit"], .box-cadastro input[type = "submit"]{
+            border:0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de;
+            padding: 10px 20px;
+            outline: none;
+            color: white;
+            border-radius: 15px;
+            transition: 0.50s;
+            cursor: pointer;
+        }
+        .box-cadastro input[type = "submit"]:hover, .box-login input[type = "submit"]:hover{
+            background: #cad4de;
+        }
+        a {
+            color: white;
+            font-size: 12px;
+        }
+        span {
+            color: white;
+            font-size: 15px;
+        }
+        h3 {
+            color: white;
+            font-size: 35px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form class="box-login" action="login" method="post">
+        <h3> Entrar </h3>
+        <input type="email" name="email" placeholder="Digite o seu email">
+        <input type="text" name="name" placeholder="Informe o usuário">
+        <input type="password" name="password" placeholder="Digite a sua senha">
+        <input type="submit" value="Login">
+        <a href=""> Esqueceu a senha? </a>
+    </form>
+    <form class="box-cadastro" action="/contato" method="get">
+        <span> Gostaria de ter acesso aos serviços Arquesys? </span>
+        <a href="/contato" style="text-decoration:none"><input type="submit" value="Entre em contato"></a>
+    </form>
+</body>
+</html>

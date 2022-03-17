@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Entre em contato</title>
+
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #fafeff;
+        }
+        .text-box{
+            width: 350px;
+            padding: 15px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%,-85%);
+            background: #37aac4;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .text-box input[type = "text"],.text-box input[type = "email"],.text-box input[type = "tel"]{
+            border:0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de ;
+            padding: 14px 10px;
+            width: 200px;
+            outline: none;
+            color: white;
+            transition: 0.50s;
+            border-radius: 5px;
+        }
+        .text-box input[type = "submit"] {
+            border:0;
+            background: none;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de;
+            padding: 10px 20px;
+            outline: none;
+            color: white;
+            border-radius: 15px;
+            transition: 0.50s;
+            cursor: pointer;
+        }
+        .text-box input[type = "submit"]:hover {
+            background: #cad4de;
+        }
+        p {
+            color: white;
+            font-size: 15px;
+            margin: 10px;
+        }
+        h1 {
+            color: white;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-box">
+        <h1> Arquesys </h1>
+        <p> Deixe seus dados que entramos em contato </p>
+        <form class="box" action="" method="post">
+            <input type="text" name="name" placeholder="Insira seu nome">
+            <input type="email" name="email" placeholder="Insira seu email">
+            <input type="tel" name="phone" placeholder="Insira seu telefone" maxlength="11">
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>

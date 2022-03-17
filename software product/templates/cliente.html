@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes </title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #fafeff;
+        }
+        .cadastrar {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            display: inline;
+            border: 0;
+            padding: 0.4em;
+            font-weight: 500;
+            transform: translate(-50%,-1350%);
+        }
+        .cancelar {
+            background-color: #ce3a2f;
+            border-color: #ce3a2f;
+            color: white;
+            border-radius: 5px;
+            display: inline;
+            border: 0;
+            padding: 0.4em;
+            font-weight: 500;
+            transform: translate(-50%,-1350%);
+        }
+        .box-cliente{
+            width: 1000px;
+            padding: 15px;
+            position: absolute ;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%,-40%);
+            background: #37aac4;
+            text-align: center;
+            border-radius: 5px;
+            height: 400px;
+        }
+        .clinica{
+            border:0;
+            background: none;
+            display: inline;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de ;
+            padding: 14px 10px;
+            width: 835px;
+            outline: none;
+            color: black;
+            transition: 0.50s;
+            border-radius: 5px;
+        }
+        .endereco, .complemento{
+            border:0;
+            background: none;
+            display: inline;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de ;
+            padding: 14px 10px;
+            width: 500px;
+            outline: none;
+            color: black;
+            transition: 0.50s;
+            border-radius: 5px;
+        }
+        .numero, .bairro, .cidade, .estado, .telefone{
+            border:0;
+            background: none;
+            display: inline;
+            margin: 20px auto;
+            text-align: center;
+            border: 2px solid #cad4de ;
+            padding: 14px 10px;
+            width: 200px;
+            outline: none;
+            color: black;
+            transition: 0.50s;
+            border-radius: 5px;
+        }
+        .clinicas{
+            transform: translate(-0.5%,-15%);
+        }
+        .enderecos{
+            transform: translate(-16%,-15%);
+        }
+        .numeros{
+            transform: translate(33%,-115%);
+        }
+        .complementos{
+            transform: translate(-17.5%,-115%);
+        }
+        .bairros{
+            transform: translate(1%,-115%);
+        }
+        .cidades{
+            transform: translate(33.5%,-314%);
+        }
+        .estados{
+            transform: translate(-31%,-314%);
+        }
+        .telefones{
+            transform: translate(33.5%,-416%);
+        }
+        label{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <form class="box-cliente" action="cliente" method="post">
+        <div class="clinicas">
+            <label> Nome clínica </label>
+            <input type="text" name="clinica" class="clinica" placeholder="Digite aqui">
+        </div>
+        <div class="enderecos">
+            <label> Endereço </label>
+            <input type="text" name="endereco" class="endereco" placeholder="Digite aqui">
+        </div>
+        <div class="numeros">
+            <label> Numero </label>
+            <input type="text" name="numero" class="numero" placeholder="Digite aqui">
+        </div>
+        <div class="complementos">
+            <label> Complemento </label>
+            <input type="text" name="complemento" class="complemento" placeholder="Ex: apto, casa">
+        </div>
+        <div class="bairros">
+            <label> Bairro </label>
+            <input type="text" name="bairro" class="bairro" placeholder="Digite aqui">
+        </div>
+        <div class="cidades">
+            <label> Cidade </label>            
+            <input type="text" name="cidade" class="cidade" placeholder="Digite aqui">
+        </div>
+        <div class="estados">
+            <label> Estado </label>
+            <select class="estado" name="estado">
+                <option> Selecione </option>
+                <option> AC </option>
+                <option> AL </option>
+                <option> AP </option>
+                <option> AM </option>
+                <option> BA </option>
+                <option> CE </option>
+                <option> DF </option>
+                <option> ES </option>
+                <option> GO </option>
+                <option> MA </option>
+                <option> MT </option>
+                <option> MS </option>
+                <option> MG </option>
+                <option> PA </option>
+                <option> PB </option>
+                <option> PR </option>
+                <option> PE </option>
+                <option> PI </option>
+                <option> RJ </option>
+                <option> RN </option>
+                <option> RS </option>
+                <option> RO </option>
+                <option> RR </option>
+                <option> SC </option>
+                <option> SP </option>
+                <option> SE </option>
+                <option> TO </option>
+            </select>
+        </div>
+        <div class="telefones">
+            <label> Telefone </label>
+            <input type="tel" name="telefone" class="telefone" placeholder="Digite aqui"  maxlength="11">
+        </div>
+        <button class="cadastrar" type="submit" > Cadastrar </button>
+        <a href="/inicial" style="text-decoration:none" ><button class="cancelar" >Cancelar </button></a>
+    </form>
+</body>
+</html>

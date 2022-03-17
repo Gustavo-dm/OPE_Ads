@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquesys - Página Inicial</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #fafeff;
+        }
+        .buttons {
+            width: 400px;
+            padding: 10px;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-175%,-410%);
+            background: #37aac4;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .pedido, .servico, .cliente {
+            border:0;
+            background: none;
+            display: inline-block;
+            margin: 15px auto;
+            text-align: center;
+            border: 2px solid #cad4de ;
+            padding: 14px 5px;
+            width: 120px;
+            outline: none;
+            color: white;
+            transition: 0.50s;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <a href="/pedido" style="text-decoration:none" ><button class="pedido">Novo pedido</button></a>
+        <a href="/servico" style="text-decoration:none" ><button class="servico">Novo serviço</button></a>
+        <a href="/cliente" style="text-decoration:none" ><button class="cliente">Novo cliente</button></a>
+    </div>
+</body>
+</html>

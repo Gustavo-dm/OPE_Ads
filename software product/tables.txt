@@ -1,0 +1,34 @@
+create table contatos(
+id int auto_increment primary key,
+name varchar(255) not null,
+email varchar(255) not null,
+phone  varchar(255) not null,
+date timestamp null default current_timestamp
+);
+
+create table pedidos(
+id int auto_increment primary key,
+date timestamp null default current_timestamp,
+clinica varchar(255) not null,
+paciente varchar(255),
+servico varchar(255),
+valor double
+);
+
+create table clientes(
+id int auto_increment primary key,
+nome_clinica varchar(255) not null,
+endereco varchar(255),
+numero varchar(255),
+complemento varchar(255),
+bairro varchar(255),
+cidade varchar(255),
+estado varchar(255),
+telefone varchar(255)
+);
+
+create table servicos(
+id int auto_increment primary key,
+servico varchar(255),
+valor varchar(255)
+);
