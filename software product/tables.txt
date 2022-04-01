@@ -8,11 +8,13 @@ date timestamp null default current_timestamp
 
 create table pedidos(
 id int auto_increment primary key,
-date timestamp null default current_timestamp,
+data_criacao timestamp default current_timestamp,
 clinica varchar(255) not null,
 paciente varchar(255),
 servico varchar(255),
-valor double
+valor double,
+status boolean,
+data_finalizacao timestamp null
 );
 
 create table clientes(
@@ -29,6 +31,6 @@ telefone varchar(255)
 
 create table servicos(
 id int auto_increment primary key,
-servico varchar(255),
+servico varchar(255) not null,
 valor varchar(255)
 );
