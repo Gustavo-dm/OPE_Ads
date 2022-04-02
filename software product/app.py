@@ -147,10 +147,27 @@ def servico():
             conn.commit()
     return render_template('servico.html')
 
-@app.route('/relatorios', methods=['GET'])
+@app.route('/relatorios/inicial', methods=['GET'])
+def gerar_rel():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('SELECT nome_clinica FROM clientes')
+    clinica = cursor.fetchall()
+    return render_template('relatorios_inicial.html', clinica=clinica)
+    
+@app.route('/relatorios/inicial', methods=['POST'])
 def relatorios():
-    name = 'Fechamento'
-    html = render_template('relatorios.html', name=name)
+    clinica = request.form.get('clinica', '')
+    inicio = request.form.get('inicial', '')
+    fim = request.form.get('final', '')
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    formato = "'%m/%d/%Y'"
+    sql = 'SELECT id, clinica, paciente, servico, valor FROM pedidos WHERE date_format(data_finalizacao, %s) between "%s" and "%s" AND clinica=%s;'
+    values = (formato ,inicio, fim, clinica)
+    cursor.execute(sql, values)
+    data = cursor.fetchall()
+    html = render_template('relatorio_layout.html', data=data)
     pdf = pdfkit.from_string(html, False)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
