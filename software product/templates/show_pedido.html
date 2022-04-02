@@ -8,9 +8,9 @@
     <title>Pedido Detalhes - {{item[0]}} </title>
     {% endfor %}
     <script type="text/javascript">
-        var excluir = document.querySelector(".button.excluir")
-        var alterar = document.querySelector(".button.alterar")
-        var reabrir = document.querySelector(".button.reabrir")
+        var excluir = boxpedidocadastrado.querySelector(".excluir")
+        var alterar = boxpedidocadastrado.querySelector(".alterar")
+        var reabrir = boxpedidocadastrado.querySelector(".reabrir")
         reabrir.disabled = true;
         function finalizar_pedido(boxpedidocadastrado){
             var fin = confirm('Deseja finalizar o pedido?');
@@ -28,11 +28,11 @@
     </script>
 </head>
 <body>
+    <button class="alterar" > Alterar </button>
+    <button class="excluir" > Excluir </button>
     {% for item in pedido %}
     <form class="boxpedidocadastrado" action="/pedido/{{item[0]}}" method="post">
-        {% endfor %}     
-        <button class="alterar" > Alterar </button>
-        <button class="excluir" > Excluir </button>
+        {% endfor %}
         <button class="finalizar" type="submit" onclick="finalizar_pedido()"> Finalizar </button>
         <button class="reabrir" > Reabrir </button>
         <div>
