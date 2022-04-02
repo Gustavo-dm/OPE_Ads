@@ -30,11 +30,10 @@
 <body>
     <button class="alterar" > Alterar </button>
     <button class="excluir" > Excluir </button>
+    <button class="reabrir" > Reabrir </button>
     {% for item in pedido %}
     <form class="boxpedidocadastrado" action="/pedido/{{item[0]}}" method="post">
         {% endfor %}
-        <button class="finalizar" type="submit" onclick="finalizar_pedido()"> Finalizar </button>
-        <button class="reabrir" > Reabrir </button>
         <div>
             <label> Número pedido </label>
             {% for item in pedido %}
@@ -66,6 +65,7 @@
             <input type="text" class="valor" name="valor" value="{{item[4]}}" readonly>
             {% endfor %}
         </div>
+        <button class="finalizar" type="submit" onclick="finalizar_pedido()" > Finalizar </button>
     </form>
 </body>
 </html>
