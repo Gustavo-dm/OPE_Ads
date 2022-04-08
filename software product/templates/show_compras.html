@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compras Detalhes </title>
+    <script type="text/javascript">
+        var excluir = boxcompras.querySelector(".excluir")
+        var alterar = boxcompras.querySelector(".alterar")
+        var gravar = boxcompras.querySelector(".gravar")
+        gravar.disabled = true;
+    </script>
+</head>
+<body>
+    <button class="alterar" > Alterar </button>
+    <button class="excluir" > Excluir </button>
+    {% for item in compras %}
+    <form class="boxcompras" action="/compras/{{item[0]}}" method="post">
+        {% endfor %}
+        <div>
+            <label> Fornecedor </label>
+            {% for item in compras %}
+            <input type="text" id="fornecedor" value="{{item[1]}}" readonly>
+            {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label> Descrição </label>
+            {% for item in compras %}
+            <input type="text" class="valor" name="valor" value="{{item[2]}}" readonly>
+            {% endfor %}
+        </div>
+        <button class="gravar" type="submit"> Gravar </button>
+    </form>
+</body>
+</html>

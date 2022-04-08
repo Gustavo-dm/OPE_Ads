@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedores </title>
+    
+    <script type="text/javascript">
+        function valida_dados (boxfornecedor){
+            if (boxfornecedor.fornecedor.value==""){
+                alert ("Por favor digite o nome do fornecedor para prosseguir.");
+                boxfornecedor.fornecedor.focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <form class="boxfornecedor" action="fornecedor" method="post" onSubmit="return valida_dados(this)">
+        <div class="fornecedores">
+            <label> Nome fornecedor </label>
+            <input type="text" name="fornecedor" class="fornecedor" placeholder="Digite aqui">
+        </div>
+        <div class="enderecos">
+            <label> Endereço </label>
+            <input type="text" name="endereco" class="endereco" placeholder="Digite aqui">
+        </div>
+        <div class="numeros">
+            <label> Numero </label>
+            <input type="text" name="numero" class="numero" placeholder="Digite aqui">
+        </div>
+        <div class="complementos">
+            <label> Complemento </label>
+            <input type="text" name="complemento" class="complemento" placeholder="Ex: apto, casa">
+        </div>
+        <div class="bairros">
+            <label> Bairro </label>
+            <input type="text" name="bairro" class="bairro" placeholder="Digite aqui">
+        </div>
+        <div class="cidades">
+            <label> Cidade </label>            
+            <input type="text" name="cidade" class="cidade" placeholder="Digite aqui">
+        </div>
+        <div class="estados">
+            <label> Estado </label>
+            <select class="estado" name="estado">
+                <option> Selecione </option>
+                <option> AC </option>
+                <option> AL </option>
+                <option> AP </option>
+                <option> AM </option>
+                <option> BA </option>
+                <option> CE </option>
+                <option> DF </option>
+                <option> ES </option>
+                <option> GO </option>
+                <option> MA </option>
+                <option> MT </option>
+                <option> MS </option>
+                <option> MG </option>
+                <option> PA </option>
+                <option> PB </option>
+                <option> PR </option>
+                <option> PE </option>
+                <option> PI </option>
+                <option> RJ </option>
+                <option> RN </option>
+                <option> RS </option>
+                <option> RO </option>
+                <option> RR </option>
+                <option> SC </option>
+                <option> SP </option>
+                <option> SE </option>
+                <option> TO </option>
+            </select>
+        </div>
+        <div class="telefones">
+            <label> Telefone </label>
+            <input type="tel" name="telefone" class="telefone" placeholder="Digite aqui"  maxlength="11">
+        </div>
+        <button class="cadastrar" type="submit" > Cadastrar </button>
+        <a href="/inicial"><button class="cancelar" >Cancelar </button></a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de compras </title>
+
+    <script type="text/javascript">
+        function valida_dados (boxcompras){
+            if (boxcompras.compras.value==""){
+                alert ("Por favor digite a lista de compras para prosseguir.");
+                boxcompras.compras.focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <form class="boxcompras" action="compras" method="post" onSubmit="return valida_dados(this)">
+        <div>
+            <label> Fornecedor </label>
+            <select class="fornecedor" name="fornecedor" >
+                <option> Selecione </option>
+                {% for item in fornecedores %}
+                <option> {{ item[0] }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label> Descrição </label>
+            <textarea type="text" name="valor" class="valor" required maxlength="300"></textarea>
+        </div>
+        
+        <button class="cadastrar" type="submit" > Cadastrar </button>
+        <a href="/inicial" style="text-decoration:none" ><button class="cancelar" >Cancelar </button></a>
+    </form>
+</body>
+</html>
