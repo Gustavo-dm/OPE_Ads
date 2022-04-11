@@ -28,7 +28,6 @@ def contato():
                 _name = request.form['user_name']
                 _email = request.form['user_email']
                 _phone = request.form['user_phone']
-        
                 if _name and _email and _phone:
                     conn = mysql.connect()
                     cursor = conn.cursor()
@@ -36,7 +35,6 @@ def contato():
                     values = (_name, _email, _phone)
                     cursor.execute(sql, values)
                     conn.commit()
-
             except Exception as error:
                 print('Problema de inserção no banco de dados: '+ str(error))
         return render_template('contato.html')
@@ -46,7 +44,7 @@ def inicial():
     return render_template('inicial.html')
 
 #pedido
-@app.route('/pedido', methods=['GET'])
+@app.route('/inicial/pedido', methods=['GET'])
 def get_pedido():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -56,7 +54,7 @@ def get_pedido():
     clientes = cursor.fetchall()
     return render_template('pedido.html', servicos=servicos, clientes=clientes)
 
-@app.route('/pedido', methods=['POST'])
+@app.route('/inicial/pedido', methods=['POST'])
 def post_pedido():
     cliente = request.form.get('cliente')
     paciente = request.form.get('paciente', '')
@@ -66,7 +64,6 @@ def post_pedido():
     if servico_valor != 'Selecione':
         servico = servico_valor.split(';')[0]
         valor = servico_valor.split(';')[1]
-
     if cliente:
         conn = mysql.connect()
         cursor = conn.cursor()
@@ -77,11 +74,11 @@ def post_pedido():
         cursor.execute('SELECT LAST_INSERT_ID();')
         pedido = cursor.fetchone()
         for nid in pedido:
-            url = f"/pedido/{nid}"
+            url = f"/inicial/pedido/{nid}"
             return redirect(url, code=302)
     return render_template('show_pedido.html')
 
-@app.route('/pedido/<int:nid>', methods=['GET'])
+@app.route('/inicial/pedido/<int:nid>', methods=['GET'])
 def show_pedido(nid):
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -91,7 +88,7 @@ def show_pedido(nid):
     pedido = cursor.fetchall()
     return render_template('show_pedido.html', pedido=pedido)
 
-@app.route('/pedido/<int:nid>', methods=['POST'])
+@app.route('/inicial/pedido/<int:nid>', methods=['POST'])
 def finaliza_pedido(nid):
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -103,7 +100,7 @@ def finaliza_pedido(nid):
     conn.commit()
     return show_pedido(nid)
 
-@app.route('/lista/pedidos', methods=['GET'])
+@app.route('/inicial/lista/pedidos', methods=['GET'])
 def lista_pedido():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -112,49 +109,99 @@ def lista_pedido():
     return render_template('lista_pedidos.html', data=data)
 
 #cliente
-@app.route('/cliente', methods=['GET', 'POST'])
-def cliente():
-    if request.method == 'POST':
-        clinica = request.form.get('clinica', '')
-        endereco = request.form.get('endereco', '')
-        numero = request.form.get('numero', '')
-        complemento = request.form.get('complemento', '')
-        bairro = request.form.get('bairro', '')
-        cidade = request.form.get('cidade', '')
-        estado = request.form.get('estado', '')
-        telefone = request.form.get('telefone', '')
-
-        if clinica:
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            sql = 'INSERT INTO clientes (nome_clinica, endereco, numero, complemento, bairro, cidade, estado, telefone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
-            values = (clinica, endereco, numero, complemento, bairro, cidade, estado, telefone)
-            cursor.execute(sql, values)
-            conn.commit()
+@app.route('/inicial/cliente', methods=['GET'])
+def get_cliente():
     return render_template('cliente.html')
 
-#servico
-@app.route('/servico', methods=['GET', 'POST'])
-def servico():
-    if request.method == 'POST':
-        servico = request.form.get('servico', '')
-        valor = request.form.get('valor', '')
+@app.route('/inicial/cliente', methods=['POST'])
+def post_cliente():
+    clinica = request.form.get('clinica', '')
+    endereco = request.form.get('endereco', '')
+    numero = request.form.get('numero', '')
+    complemento = request.form.get('complemento', '')
+    bairro = request.form.get('bairro', '')
+    cidade = request.form.get('cidade', '')
+    estado = request.form.get('estado', '')
+    telefone = request.form.get('telefone', '')
+    if clinica:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        sql = 'INSERT INTO clientes (nome_clinica, endereco, numero, complemento, bairro, cidade, estado, telefone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
+        values = (clinica, endereco, numero, complemento, bairro, cidade, estado, telefone)
+        cursor.execute(sql, values)
+        conn.commit()
+        cursor.execute('SELECT LAST_INSERT_ID();')
+        cliente = cursor.fetchone()
+        for nid in cliente:
+            url = f"/inicial/cliente/{nid}"
+            return redirect(url, code=302)
+    return render_template('show_cliente.html')
 
-        if servico:
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            sql = 'INSERT INTO servicos (servico, valor) VALUES (%s, %s);'
-            values = (servico, valor)
-            cursor.execute(sql, values)
-            conn.commit()
+@app.route('/inicial/cliente/<int:nid>', methods=['GET'])
+def show_cliente(nid):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    sql = 'SELECT id, nome_clinica, endereco, numero, complemento, bairro, cidade, estado, telefone FROM clientes WHERE id = %s'
+    value = (nid)
+    cursor.execute(sql, value)
+    cliente = cursor.fetchall()
+    return render_template('show_cliente.html', cliente=cliente)
+
+@app.route('/inicial/lista/cliente', methods=['GET'])
+def lista_cliente():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('SELECT id, nome_clinica, endereco, telefone FROM clientes')
+    data = cursor.fetchall()
+    return render_template('lista_cliente.html', data=data)
+
+#servico
+@app.route('/inicial/servico', methods=['GET'])
+def get_servico():
     return render_template('servico.html')
 
+@app.route('/inicial/servico', methods=['POST'])
+def post_servico():
+    servico = request.form.get('servico', '')
+    valor = request.form.get('valor', '')
+    if servico:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        sql = 'INSERT INTO servicos (servico, valor) VALUES (%s, %s);'
+        values = (servico, valor)
+        cursor.execute(sql, values)
+        conn.commit()
+        cursor.execute('SELECT LAST_INSERT_ID();')
+        servico = cursor.fetchone()
+        for nid in servico:
+            url = f"/inicial/servico/{nid}"
+            return redirect(url, code=302)
+    return render_template('show_servico.html')
+
+@app.route('/inicial/servico/<int:nid>', methods=['GET'])
+def show_servico(nid):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    sql = 'SELECT id, servico, valor FROM servicos WHERE id = %s'
+    value = (nid)
+    cursor.execute(sql, value)
+    servico = cursor.fetchall()
+    return render_template('show_servico.html', servico=servico)
+
+@app.route('/inicial/lista/servico', methods=['GET'])
+def lista_servico():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('SELECT id, servico, valor FROM servicos')
+    data = cursor.fetchall()
+    return render_template('lista_servico.html', data=data)
+
 #fornecedor
-@app.route('/fornecedor', methods=['GET'])
+@app.route('/inicial/fornecedor', methods=['GET'])
 def get_fornecedor():
     return render_template('fornecedor.html')
 
-@app.route('/fornecedor', methods=['POST'])
+@app.route('/inicial/fornecedor', methods=['POST'])
 def post_fornecedor():
     fornecedor = request.form.get('fornecedor', '')
     endereco = request.form.get('endereco', '')
@@ -165,20 +212,20 @@ def post_fornecedor():
     estado = request.form.get('estado', '')
     telefone = request.form.get('telefone', '')
     if fornecedor:
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            sql = 'INSERT INTO fornecedores (nome_forne, endereco, numero, complemento, bairro, cidade, estado, telefone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
-            values = (fornecedor, endereco, numero, complemento, bairro, cidade, estado, telefone)
-            cursor.execute(sql, values)
-            conn.commit()
-            cursor.execute('SELECT LAST_INSERT_ID();')
-            forne = cursor.fetchone()
-            for nid in forne:
-                url = f"/fornecedor/{nid}"
-                return redirect(url, code=302)
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        sql = 'INSERT INTO fornecedores (nome_forne, endereco, numero, complemento, bairro, cidade, estado, telefone) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);'
+        values = (fornecedor, endereco, numero, complemento, bairro, cidade, estado, telefone)
+        cursor.execute(sql, values)
+        conn.commit()
+        cursor.execute('SELECT LAST_INSERT_ID();')
+        forne = cursor.fetchone()
+        for nid in forne:
+            url = f"/inicial/fornecedor/{nid}"
+            return redirect(url, code=302)
     return render_template('show_fornecedor.html')
 
-@app.route('/fornecedor/<int:nid>', methods=['GET'])
+@app.route('/inicial/fornecedor/<int:nid>', methods=['GET'])
 def show_fornecedor(nid):
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -188,7 +235,7 @@ def show_fornecedor(nid):
     forne = cursor.fetchall()
     return render_template('show_fornecedor.html', forne=forne)
 
-@app.route('/lista/fornecedor', methods=['GET'])
+@app.route('/inicial/lista/fornecedor', methods=['GET'])
 def lista_forne():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -197,7 +244,7 @@ def lista_forne():
     return render_template('lista_fornecedor.html', data=data)
 
 #lista de compras
-@app.route('/compras', methods=['GET'])
+@app.route('/inicial/compras', methods=['GET'])
 def get_compras():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -205,7 +252,7 @@ def get_compras():
     fornecedores = cursor.fetchall()
     return render_template('compras.html', fornecedores=fornecedores)
 
-@app.route('/compras', methods=['POST'])
+@app.route('/inicial/compras', methods=['POST'])
 def post_compras():
     fornecedor = request.form.get('fornecedor', '')
     descricao = request.form.get('valor', '')
@@ -218,11 +265,11 @@ def post_compras():
     cursor.execute('SELECT LAST_INSERT_ID();')
     compras = cursor.fetchone()
     for nid in compras:
-        url = f"/compras/{nid}"
+        url = f"/inicial/compras/{nid}"
         return redirect(url, code=302)
     return render_template('show_compras.html')
 
-@app.route('/compras/<int:nid>', methods=['GET'])
+@app.route('/inicial/compras/<int:nid>', methods=['GET'])
 def show_compras(nid):
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -232,7 +279,7 @@ def show_compras(nid):
     compras = cursor.fetchall()
     return render_template('show_compras.html', compras=compras)
 
-@app.route('/lista/compras', methods=['GET'])
+@app.route('/inicial/lista/compras', methods=['GET'])
 def lista_compras():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -241,7 +288,7 @@ def lista_compras():
     return render_template('lista_compras.html', data=data)
 
 #relatório
-@app.route('/relatorios/inicial', methods=['GET'])
+@app.route('/inicial/relatorios', methods=['GET'])
 def get_relatorios():
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -249,7 +296,7 @@ def get_relatorios():
     clinica = cursor.fetchall()
     return render_template('relatorios_inicial.html', clinica=clinica)
     
-@app.route('/relatorios/inicial', methods=['POST'])
+@app.route('/inicial/relatorios', methods=['POST'])
 def post_relatorios():
     clinica = request.form.get('clinica', '')
     inicio = request.form.get('inicial', '')
@@ -258,7 +305,7 @@ def post_relatorios():
     cursor = conn.cursor()
     formato = "'%m/%d/%Y'"
     sql = 'SELECT id, clinica, paciente, servico, valor FROM pedidos WHERE date_format(data_finalizacao, %s) between "%s" and "%s" AND clinica=%s;'
-    values = (formato ,inicio, fim, clinica)
+    values = (formato, inicio, fim, clinica)
     cursor.execute(sql, values)
     data = cursor.fetchall()
     html = render_template('relatorio_layout.html', data=data)
@@ -267,6 +314,7 @@ def post_relatorios():
     response.headers["Content-Type"] = "application/pdf"
     response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
     return response
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5002))

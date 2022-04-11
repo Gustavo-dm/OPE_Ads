@@ -16,7 +16,7 @@
     <button class="alterar" > Alterar </button>
     <button class="excluir" > Excluir </button>
     {% for item in compras %}
-    <form class="boxcompras" action="/compras/{{item[0]}}" method="post">
+    <form class="boxcompras" action="/inicial/compras/{{item[0]}}" method="post">
         {% endfor %}
         <div>
             <label> Fornecedor </label>

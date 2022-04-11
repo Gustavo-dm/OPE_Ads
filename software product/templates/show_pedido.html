@@ -32,7 +32,7 @@
     <button class="excluir" > Excluir </button>
     <button class="reabrir" > Reabrir </button>
     {% for item in pedido %}
-    <form class="boxpedidocadastrado" action="/pedido/{{item[0]}}" method="post">
+    <form class="boxpedidocadastrado" action="/inicial/pedido/{{item[0]}}" method="post">
         {% endfor %}
         <div>
             <label> Número pedido </label>
