@@ -23,7 +23,7 @@
             <select class="fornecedor" name="fornecedor" >
                 <option> Selecione </option>
                 {% for item in fornecedores %}
-                <option> {{ item[0] }} </option>
+                <option> {{ item.nome_forne }} </option>
                 {% endfor %}
             </select>
         </div>

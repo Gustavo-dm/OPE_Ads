@@ -16,19 +16,19 @@
     <button class="alterar" > Alterar </button>
     <button class="excluir" > Excluir </button>
     {% for item in compras %}
-    <form class="boxcompras" action="/inicial/compras/{{item[0]}}" method="post">
+    <form class="boxcompras" action="/inicial/compras/{{item.id}}" method="post">
         {% endfor %}
         <div>
             <label> Fornecedor </label>
             {% for item in compras %}
-            <input type="text" id="fornecedor" value="{{item[1]}}" readonly>
+            <input type="text" id="fornecedor" value="{{item.nome_forne}}" readonly>
             {% endfor %}
             </select>
         </div>
         <div>
             <label> Descrição </label>
             {% for item in compras %}
-            <input type="text" class="valor" name="valor" value="{{item[2]}}" readonly>
+            <input type="text" class="valor" name="valor" value="{{item.descricao}}" readonly>
             {% endfor %}
         </div>
         <button class="gravar" type="submit"> Gravar </button>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamentos </title>
+
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" 
+        rel="Stylesheet"
+        type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#data").datepicker({
+                showOn: "button",
+                buttonImage: "./icons8-calendar-48.png",    
+                buttonImageOnly: true
+            })
+        });
+    </script>
+    <style type="text/css">
+        .ui-datepicker-trigger { 
+            max-height: 28px;
+        }
+    </style>
+
+</head>
+<body>
+    <form class="boxpagamentos" action="/inicial/pagamentos" method="post">
+        <div>
+            <label> Clínica </label>
+            <select class="cliente" name="cliente" >
+                <option> Selecione </option>
+                {% for item in clientes %}
+                <option> {{ item.nome_clinica }} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label> Valor </label>
+            <input type="number" step="0.01" name="valor" class="valor" placeholder="Digite aqui">
+        </div>
+        <div>
+            <label> Data </label>
+        <input id="data" name="data" type="text" class="form-control">
+        </div>
+        
+        <button class="cadastrar" type="submit" > Cadastrar </button>
+        <a href="/inicial" style="text-decoration:none" ><button class="cancelar" >Cancelar </button></a>
+    </form>
+</body>
+</html>

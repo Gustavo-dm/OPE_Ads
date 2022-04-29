@@ -16,61 +16,61 @@
     <button class="alterar" > Alterar </button>
     <button class="excluir" > Excluir </button>
     {% for item in forne %}
-    <form class="boxfornecedor" action="/inicial/fornecedor/{{item[0]}}" method="post">
+    <form class="boxfornecedor" action="/inicial/fornecedor/{{item.id}}" method="post">
         {% endfor %}
         <div>
             <label> Número fornecedor </label>
             {% for item in forne %}
-            <input type="text" id="num_forne" value="{{item[0]}}" readonly>
+            <input type="text" id="num_forne" value="{{item.id}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Fornecedor </label>
             {% for item in forne %}
-            <input type="text" id="fornecedor" value="{{item[1]}}" readonly>
+            <input type="text" id="fornecedor" value="{{item.nome_forne}}" readonly>
             {% endfor %}
             </select>
         </div>
         <div>
             <label> Endereço </label>
             {% for item in forne %}
-            <input type="text" class="endereco" name="endereco" value="{{item[2]}}" readonly>
+            <input type="text" class="endereco" name="endereco" value="{{item.endereco}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Número </label>
             {% for item in forne %}
-            <input type="text" class="numero" name="numero" value="{{item[3]}}" readonly>
+            <input type="text" class="numero" name="numero" value="{{item.numero}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Complemento </label>
             {% for item in forne %}
-            <input type="text" class="complemento" name="complemento" value="{{item[4]}}" readonly>
+            <input type="text" class="complemento" name="complemento" value="{{item.complemento}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Bairro </label>
             {% for item in forne %}
-            <input type="text" class="bairro" name="bairro" value="{{item[5]}}" readonly>
+            <input type="text" class="bairro" name="bairro" value="{{item.bairro}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Cidade </label>
             {% for item in forne %}
-            <input type="text" class="cidade" name="cidade" value="{{item[6]}}" readonly>
+            <input type="text" class="cidade" name="cidade" value="{{item.cidade}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Estado </label>
             {% for item in forne %}
-            <input type="text" class="estado" name="estado" value="{{item[7]}}" readonly>
+            <input type="text" class="estado" name="estado" value="{{item.estado}}" readonly>
             {% endfor %}
         </div>
         <div>
             <label> Telefone </label>
             {% for item in forne %}
-            <input type="text" class="telefone" name="telefone" value="{{item[8]}}" readonly>
+            <input type="text" class="telefone" name="telefone" value="{{item.telefone}}" readonly>
             {% endfor %}
         </div>
         <button class="gravar" type="submit"> Gravar </button>

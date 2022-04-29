@@ -52,3 +52,10 @@ id int auto_increment primary key,
 nome_forne varchar(255),
 descricao varchar(300) not null
 );
+
+create table pagamentos(
+id int auto_increment primary key,
+nome_clinica varchar(255) not null,
+valor varchar(255),
+data_finalizacao datetime 
+);

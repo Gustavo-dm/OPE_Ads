@@ -11,7 +11,7 @@
         <tr>
             <th> Clínica</th>
             {% for item in data %}
-            <td> {{item[1]}} </td>
+            <td> {{item.nome_clinica}} </td>
             {% endfor %}
         </tr>
         <tr>
@@ -22,10 +22,10 @@
         </tr>
         {% for item in data %}
         <tr>
-            <td> {{ item[0] }} </td>
-            <td> {{ item[2] }} </td>
-            <td> {{ item[3] }} </td>
-            <td> {{ item[4] }} </td>
+            <td> {{ item.id }} </td>
+            <td> {{ item.paciente }} </td>
+            <td> {{ item.servico }} </td>
+            <td> {{ item.valor }} </td>
         </tr>
         {% endfor %}
     </table>
