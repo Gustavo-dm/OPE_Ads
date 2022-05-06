@@ -1,7 +1,7 @@
 # Documentação Arquesys
 
 ### Conexão com banco de dados
-- **['SQLALCHEMY_DATABASE_URI']**: indica a url de conexão
+- **['SQLALCHEMY_DATABASE_URI']**: indica a url de conexão com o banco de dados mysql
 
 ### Rotas
 
@@ -14,7 +14,7 @@
 #### Route _"/inicial"_
 - contém opções para navegar dentro do sistema, como:
   1. Criação de novos pedidos
-  2. Criação de novos fornecedores
+  2. Listagem de fornecedores
   3. Geração de relatórios
 ---
 #### Route _"/inicial/pedido"_
@@ -31,6 +31,14 @@
 
 #### Route _"/inicial/lista/pedidos"_
 - Apresenta os pedidos cadastrados
+
+#### Route _"/inicial/pedido/<int\:nid>/editar"_
+>    **POST**
+     - altera os dados inseridos pelo usuário no banco de dados e retorna os dados salvos
+
+#### Route _"/inicial/pedido/<int\:nid>/deletar"_
+>    **POST**
+     - deleta os dados do banco de dados do pedido informado
 ---
 #### Route _"/inicial/cliente"_
 >    **GET**
@@ -44,6 +52,14 @@
      
 #### Route _"/inicial/lista/cliente"_
 - Apresenta os clientes cadastrados
+
+#### Route _"/inicial/cliente/<int\:nid>/editar"_
+>    **POST**
+     - altera os dados inseridos pelo usuário no banco de dados e retorna os dados salvos
+
+#### Route _"/inicial/cliente/<int\:nid>/deletar"_
+>    **POST**
+     - deleta os dados do banco de dados do cliente informado
 ---
 #### Route _"/inicial/servico"_
 >    **GET**
@@ -57,6 +73,14 @@
 
 #### Route _"/inicial/lista/servico"_
 - Apresenta os serviços cadastrados
+
+#### Route _"/inicial/servico/<int\:nid>/editar"_
+>    **POST**
+     - altera os dados inseridos pelo usuário no banco de dados e retorna os dados salvos
+
+#### Route _"/inicial/servico/<int\:nid>/deletar"_
+>    **POST**
+     - deleta os dados do banco de dados do servico informado
 ---
 #### Route _"/inicial/fornecedor"_
 >    **GET**
@@ -70,6 +94,14 @@
 
 #### Route _"/inicial/lista/fornecedor"_
 - Apresenta os fornecedores cadastrados
+
+#### Route _"/inicial/fornecedor/<int\:nid>/editar"_
+>    **POST**
+     - altera os dados inseridos pelo usuário no banco de dados e retorna os dados salvos
+
+#### Route _"/inicial/fornecedor/<int\:nid>/deletar"_
+>    **POST**
+     - deleta os dados do banco de dados do fornecedor informado
 ---
 #### Route _"/inicial/compras"_
 >    **GET**
@@ -83,6 +115,14 @@
 
 #### Route _"/inicial/lista/compras"_
 - Apresenta as listas de compras cadastradas
+
+#### Route _"/inicial/compras/<int\:nid>/editar"_
+>    **POST**
+     - altera os dados inseridos pelo usuário no banco de dados e retorna os dados salvos
+
+#### Route _"/inicial/compras/<int\:nid>/deletar"_
+>    **POST**
+     - deleta os dados do banco de dados do compras informado
 ---
 #### Route _"/inicial/pagamentos"_
 >    **GET**

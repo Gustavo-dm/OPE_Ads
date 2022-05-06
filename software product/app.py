@@ -85,6 +85,29 @@ def lista_pedido():
     data = Pedidos.query.all()
     return render_template('lista_pedidos.html', data=data)
 
+@app.route('/inicial/pedido/<int:nid>/editar', methods=['POST'])
+def edita_pedido(nid):
+    cliente = request.form.get('cliente')
+    paciente = request.form.get('paciente', '')
+    servico_valor = request.form.get('servico')
+    if servico_valor != 'Selecione':
+        servico = servico_valor.split(';')[0]
+        valor = servico_valor.split('; ')[1]
+    db.session.query(Pedidos).filter_by(id=nid).update({
+        'clinica': cliente,
+        'paciente': paciente,
+        'servico': servico,
+        'valor': valor
+    })
+    db.session.commit()
+    return show_pedido(nid)
+
+@app.route('/inicial/pedido/<int:nid>/deletar', methods=['POST'])
+def deleta_pedido(nid):
+    db.session.query(Pedidos).filter_by(id=nid).delete()
+    db.session.commit()
+    return redirect('/inicial/pedido', code=302)
+
 #cliente
 @app.route('/inicial/cliente', methods=['GET'])
 def get_cliente():
@@ -120,6 +143,35 @@ def lista_cliente():
     data = Clientes.query.all()
     return render_template('lista_cliente.html', data=data)
 
+@app.route('/inicial/cliente/<int:nid>/editar', methods=['POST'])
+def edita_cliente(nid):
+    clinica = request.form.get('clinica', '')
+    endereco = request.form.get('endereco', '')
+    numero = request.form.get('numero', '')
+    complemento = request.form.get('complemento', '')
+    bairro = request.form.get('bairro', '')
+    cidade = request.form.get('cidade', '')
+    estado = request.form.get('estado', '')
+    telefone = request.form.get('telefone', '')
+    db.session.query(Clientes).filter_by(id=nid).update({
+        'nome_clinica': clinica,
+        'endereco': endereco,
+        'numero': numero,
+        'complemento': complemento,
+        'bairro': bairro,
+        'cidade': cidade,
+        'estado': estado,
+        'telefone': telefone
+    })
+    db.session.commit()
+    return show_cliente(nid)
+
+@app.route('/inicial/cliente/<int:nid>/deletar', methods=['POST'])
+def deleta_cliente(nid):
+    db.session.query(Clientes).filter_by(id=nid).delete()
+    db.session.commit()
+    return redirect('/inicial/cliente', code=302)
+
 #servico
 @app.route('/inicial/servico', methods=['GET'])
 def get_servico():
@@ -148,6 +200,23 @@ def show_servico(nid):
 def lista_servico():
     data = Servicos.query.all()
     return render_template('lista_servico.html', data=data)
+
+@app.route('/inicial/servico/<int:nid>/editar', methods=['POST'])
+def edita_servico(nid):
+    servico = request.form.get('servico', '')
+    valor = request.form.get('valor', '')
+    db.session.query(Servicos).filter_by(id=nid).update({
+        'servico': servico,
+        'valor': valor
+    })
+    db.session.commit()
+    return show_servico(nid)
+
+@app.route('/inicial/servico/<int:nid>/deletar', methods=['POST'])
+def deleta_servico(nid):
+    db.session.query(Servicos).filter_by(id=nid).delete()
+    db.session.commit()
+    return redirect('/inicial/servico', code=302)
 
 #fornecedor
 @app.route('/inicial/fornecedor', methods=['GET'])
@@ -184,6 +253,35 @@ def lista_forne():
     data = Fornecedores.query.all()
     return render_template('lista_fornecedor.html', data=data)
 
+@app.route('/inicial/fornecedor/<int:nid>/editar', methods=['POST'])
+def edita_fornecedor(nid):
+    fornecedor = request.form.get('fornecedor', '')
+    endereco = request.form.get('endereco', '')
+    numero = request.form.get('numero', '')
+    complemento = request.form.get('complemento', '')
+    bairro = request.form.get('bairro', '')
+    cidade = request.form.get('cidade', '')
+    estado = request.form.get('estado', '')
+    telefone = request.form.get('telefone', '')
+    db.session.query(Fornecedores).filter_by(id=nid).update({
+        'nome_forne': fornecedor,
+        'endereco': endereco,
+        'numero': numero,
+        'complemento': complemento,
+        'bairro': bairro,
+        'cidade': cidade,
+        'estado': estado,
+        'telefone': telefone
+    })
+    db.session.commit()
+    return show_fornecedor(nid)
+
+@app.route('/inicial/fornecedor/<int:nid>/deletar', methods=['POST'])
+def deleta_fornecedor(nid):
+    db.session.query(Fornecedores).filter_by(id=nid).delete()
+    db.session.commit()
+    return redirect('/inicial/fornecedor', code=302)
+
 #lista de compras
 @app.route('/inicial/compras', methods=['GET'])
 def get_compras():
@@ -214,6 +312,23 @@ def lista_compras():
     data = Compras.query.all()
     return render_template('lista_compras.html', data=data)
 
+@app.route('/inicial/compras/<int:nid>/editar', methods=['POST'])
+def edita_compras(nid):
+    fornecedor = request.form.get('fornecedor', '')
+    descricao = request.form.get('valor', '')
+    db.session.query(Compras).filter_by(id=nid).update({
+        'nome_forne': fornecedor,
+        'descricao': descricao
+    })
+    db.session.commit()
+    return show_compras(nid)
+
+@app.route('/inicial/compras/<int:nid>/deletar', methods=['POST'])
+def deleta_compras(nid):
+    db.session.query(Compras).filter_by(id=nid).delete()
+    db.session.commit()
+    return redirect('/inicial/compras', code=302)
+
 #pagamento
 @app.route('/inicial/pagamentos', methods=['GET'])
 def get_pagamento():
@@ -224,8 +339,9 @@ def get_pagamento():
 def post_pagamento():
     cliente = request.form.get('cliente', '')
     valor = request.form.get('valor', '')
-    data_notok = request.form.get('data', '')
-    data = datetime.datetime.strptime(data_notok, "%m/%d/%Y")
+    data_string = request.form.get('data', '')
+    data_notok = datetime.datetime.strptime(data_string, "%m/%d/%Y").date()
+    data = data_notok.strftime('%Y-%m-%d')
     if cliente:
         pagamentos = Pagamentos(cliente, valor, data)
         db.session.add(pagamentos)
@@ -269,9 +385,8 @@ def post_relatorios():
     #return redirect(response, code=302)
 
 
-#if __name__ == "__main__":
-#    port = int(os.environ.get("PORT", 5002))
-#    app.run(host='0.0.0.0', port=port)
-if __name__ == '__main__':
+if __name__ == "__main__":
     db.create_all()
-    app.run()
+    port = int(os.environ.get("PORT", 5002))
+    app.run(host='0.0.0.0', port=port)
+#    app.run()

@@ -110,7 +110,7 @@ class Pagamentos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome_clinica = db.Column(db.String(100), nullable=False)
     valor = db.Column(db.String(100), default=0.0)
-    data_criacao = db.Column(db.DateTime)
+    data_criacao = db.Column(db.Date)
 
     def __init__(self, nome_clinica, valor, data_criacao):
         self.nome_clinica = nome_clinica
