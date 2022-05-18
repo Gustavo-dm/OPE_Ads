@@ -29,6 +29,9 @@
 
 </head>
 <body>
+    {% extends "base.html"%}
+    {% block content %}
+
     <form class="boxpagamentos" action="/inicial/pagamentos" method="post">
         <div>
             <label> Clínica </label>
@@ -51,5 +54,6 @@
         <button class="cadastrar" type="submit" > Cadastrar </button>
         <a href="/inicial" style="text-decoration:none" ><button class="cancelar" >Cancelar </button></a>
     </form>
+    {% endblock %}
 </body>
 </html>

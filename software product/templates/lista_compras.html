@@ -7,11 +7,16 @@
     <title> Lista de compras </title>
 </head>
 <body>
-    <table border="1">
+    {% extends "base.html"%}
+
+    {% block content %}
+    <div class="container">
+        <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
         <tr>
             <th> ID </th>
             <th> Fornecedor </th>
-            <th> Data </th>
+            <th> Items </th>
         </tr>
         {% for item in data %}
         <tr>
@@ -21,5 +26,8 @@
         </tr>
         {% endfor %}
     </table>
+    </div>
+    </div>
+    {% endblock %}
 </body>
 </html>

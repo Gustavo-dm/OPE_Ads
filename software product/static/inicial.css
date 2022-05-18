@@ -1,0 +1,6 @@
+@import url(shared.css);
+.card-img-top
+{
+    height: 20px; 
+    width:20px;
+}

@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from models import *
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:475869@localhost/testes'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/testes'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -388,5 +388,5 @@ def post_relatorios():
 if __name__ == "__main__":
     db.create_all()
     port = int(os.environ.get("PORT", 5002))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port,debug=True)
 #    app.run()

@@ -1,50 +1,53 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clientes </title>
-    
-    <script type="text/javascript">
-        function valida_dados (boxcliente){
-            if (boxcliente.clinica.value==""){
-                alert ("Por favor digite o nome da clínica para prosseguir.");
-                boxcliente.clinica.focus();
-                return false;
-            }
-        }
-    </script>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Clientes </title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/cliente.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="../static/cliente.js" defer></script>
+        
 </head>
 <body>
+    {% extends "base.html"%}
+
+    {% block content %}
+
     <form class="boxcliente" action="/inicial/cliente" method="post" onSubmit="return valida_dados(this)">
         <div class="clinicas">
             <label> Nome clínica </label>
-            <input type="text" name="clinica" class="clinica" placeholder="Digite aqui">
+            <input type="text" name="clinica" class="form-control" placeholder="Digite aqui">
         </div>
         <div class="enderecos">
             <label> Endereço </label>
-            <input type="text" name="endereco" class="endereco" placeholder="Digite aqui">
+            <input type="text" name="endereco" class="form-control" placeholder="Digite aqui">
         </div>
         <div class="numeros">
             <label> Numero </label>
-            <input type="text" name="numero" class="numero" placeholder="Digite aqui">
+            <input type="text" name="numero" class="form-control" placeholder="Digite aqui">
         </div>
         <div class="complementos">
             <label> Complemento </label>
-            <input type="text" name="complemento" class="complemento" placeholder="Ex: apto, casa">
+            <input type="text" name="complemento" class="form-control" placeholder="Ex: apto, casa">
         </div>
         <div class="bairros">
             <label> Bairro </label>
-            <input type="text" name="bairro" class="bairro" placeholder="Digite aqui">
+            <input type="text" name="bairro" class="form-control" placeholder="Digite aqui">
         </div>
         <div class="cidades">
             <label> Cidade </label>            
-            <input type="text" name="cidade" class="cidade" placeholder="Digite aqui">
+            <input type="text" name="cidade" class="form-control" placeholder="Digite aqui">
         </div>
         <div class="estados">
             <label> Estado </label>
-            <select class="estado" name="estado">
+            <select class="form-select" name="estado">
                 <option> Selecione </option>
                 <option> AC </option>
                 <option> AL </option>
@@ -77,10 +80,16 @@
         </div>
         <div class="telefones">
             <label> Telefone </label>
-            <input type="tel" name="telefone" class="telefone" placeholder="Digite aqui"  maxlength="11">
+            <input type="tel" name="telefone" class="form-control" placeholder="Digite aqui"  maxlength="11">
         </div>
-        <button class="cadastrar" type="submit" > Cadastrar </button>
-        <a href="/inicial"><button class="cancelar" >Cancelar </button></a>
+        <br>
+        <button type="button" type="submit" class="btn btn-primary">Cadastrar</button>
+
+        <a href="/inicial" type="button" class="btn btn-danger">Cancelar</a>
+
     </form>
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

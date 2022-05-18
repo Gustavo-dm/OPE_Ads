@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de compras </title>
-
+    <link rel="stylesheet" href="../static/compras.css">
     <script type="text/javascript">
         function valida_dados (boxcompras){
             if (boxcompras.valor.value==""){
@@ -17,23 +17,31 @@
     </script>
 </head>
 <body>
-    <form class="boxcompras" action="/inicial/compras" method="post" onSubmit="return valida_dados(this)">
-        <div>
-            <label> Fornecedor </label>
-            <select class="fornecedor" name="fornecedor" >
-                <option> Selecione </option>
-                {% for item in fornecedores %}
-                <option> {{ item.nome_forne }} </option>
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label> Descrição </label>
-            <textarea type="text" name="valor" class="valor" required maxlength="300"></textarea>
-        </div>
+    {% extends "base.html"%}
+
+    {% block content %}
+    <div class="mb-3">
+
+    <form action="/inicial/compras" method="post" onSubmit="return valida_dados(this)">
         
-        <button class="cadastrar" type="submit" > Cadastrar </button>
-        <a href="/inicial" style="text-decoration:none" ><button class="cancelar" >Cancelar </button></a>
+        <div class="input-group mb-3">
+                <select class="form-select" aria-label="Default select example">                    
+                    {% for item in fornecedores %}
+                    <option> {{ item.nome_forne }} </option>
+                    {% endfor %}
+                  </select>
+        </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Valor</label>
+                    <textarea name="valor" required maxlength="300" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+
+        <button class="btn btn-primary" type="submit" > Cadastrar </button>
+        <a href="/inicial" style="text-decoration:none" ><button class="btn btn-danger" >Cancelar </button></a>
+        </div>
+
     </form>
+    {% endblock %}
 </body>
+
 </html>
