@@ -6,7 +6,10 @@
     --light_green:#91D2D9;
     --submit:#0062cc;
     --cancel:#cc0033;
+    height: 100%;
+    width: 100%;
   }
+
 
   .navbar-light .navbar-nav .nav-link {
     color: #000000;
