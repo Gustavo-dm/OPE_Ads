@@ -116,3 +116,16 @@ class Pagamentos(db.Model):
         self.nome_clinica = nome_clinica
         self.valor = valor
         self.data_criacao = data_criacao
+
+class Usuarios(db.Model):
+    __tablename__ = "usuarios"
+
+    uid = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+    email = db.Column(db.String(200), nullable=True)
+
+    def __init__(self, username, password, email):
+        self.username = username
+        self.password = password
+        self.email = email
