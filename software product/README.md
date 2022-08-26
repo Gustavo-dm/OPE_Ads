@@ -1,8 +1,8 @@
 # Documentação Arquesys
 
 ### Rodar o programa
-- **Ligar o servidor na AWS**: Acessar a console da AWS >> EC2 >> Instâncias >> selecionar a instância "arquesys" >> em Estado da instância >> Iniciar instâncias 
-- **Rodar o programa**: http://35.173.198.162:5002/
+- **Ligar o servidor na AWS**: Acessar a console da AWS >> EC2 >> Instâncias >> selecionar a instância "arquesys" >> em Estado da instância >> Iniciar instâncias
+Obs.: O programa é executado automaticamente em http://35.173.198.162:5002/ quando o servidor é ligado
 
 
 ### Conexão com banco de dados
