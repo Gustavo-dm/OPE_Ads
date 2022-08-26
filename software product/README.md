@@ -1,7 +1,7 @@
 # Documentação Arquesys
 
 ### Rodar o programa
-- **Console AWS**: Acessar a console da AWS, ligar o servidor 
+**Console AWS**: Acessar a console da AWS, ligar o servidor 
 
 
 ### Conexão com banco de dados
