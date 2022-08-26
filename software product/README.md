@@ -1,5 +1,9 @@
 # Documentação Arquesys
 
+### Rodar o programa
+- **Console AWS**: Acessar a console da AWS, ligar o servidor 
+
+
 ### Conexão com banco de dados
 - **['SQLALCHEMY_DATABASE_URI']**: indica a url de conexão com o banco de dados mysql
 
