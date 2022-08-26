@@ -110,17 +110,18 @@ class Pagamentos(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome_clinica = db.Column(db.String(100), nullable=False)
     valor = db.Column(db.String(100), default=0.0)
-    data_criacao = db.Column(db.Date)
+    data_finalizacao = db.Column(db.Date)
+    
 
-    def __init__(self, nome_clinica, valor, data_criacao):
+    def __init__(self, nome_clinica, valor, data_finalizacao):
         self.nome_clinica = nome_clinica
         self.valor = valor
-        self.data_criacao = data_criacao
+        self.data_finalizacao = data_finalizacao
 
 class Usuarios(db.Model):
     __tablename__ = "usuarios"
 
-    uid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(200), nullable=True)

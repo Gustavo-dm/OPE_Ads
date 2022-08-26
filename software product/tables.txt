@@ -57,5 +57,13 @@ create table pagamentos(
 id int auto_increment primary key,
 nome_clinica varchar(255) not null,
 valor varchar(255),
-data_finalizacao datetime 
+data_finalizacao timestamp not null,
+);
+
+create table usuarios(
+id int auto_increment primary key,
+username varchar(255) not null,
+password varchar(255) not null,
+email varchar(255) not null,
+
 );
