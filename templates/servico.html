@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços </title>
+    <script src="../static/servico.js"></script>
+    <link rel="stylesheet" href="../static/forms.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    {% extends "base.html"%}
+
+    {% block content %}
+    <form class="boxservico" action="/inicial/servico" method="post" onSubmit="return valida_dados(this)">
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Cadastro de Serviço.</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="servico" class="form-control" placeholder="Serviço*"
+                                    value="" />
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="valor" class="form-control" placeholder="Valor *" value="" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btnSubmit">Submit</button>
+                    <a href="/inicial" style="text-decoration:none"><button class="btnCancel">Cancelar </button></a>
+                </div>
+            </div>
+        </div>
+    </form>
+    {%endblock%}
+</body>
+
+</html>

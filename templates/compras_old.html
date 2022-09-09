@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de compras </title>
+    <link rel="stylesheet" href="../static/compras.css">
+    <link rel="stylesheet" href="../static/forms.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" defer></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
+
+    <script type="text/javascript">
+        function valida_dados (boxcompras){
+            if (boxcompras.valor.value==""){
+                alert ("Por favor digite a lista de compras para prosseguir.");
+                boxcompras.valor.focus();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    {% extends "base.html"%}
+
+    {% block content %}
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Registre uma Lista de Compras</p>
+            </div>
+
+    <form action="/inicial/compras" method="post" onSubmit="return valida_dados(this)">
+        <div class="container register-form">
+
+            <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example">
+                        
+                        {% for item in fornecedores %}
+                        <option id="exampleFormControlTextarea1" aria-placeholder="Selecione o fornecedor">" {{ item.nome_forne }} </option>
+                        {% endfor %}
+                      </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Valor</label>
+                    <textarea name="valor" required maxlength="300" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        </div>
+
+        <button class="btnSubmit" type="submit" > Cadastrar </button>
+        <a href="/inicial" style="text-decoration:none" ><button class="btnCancel" >Cancelar </button></a>
+        </div>
+
+    </form>
+    {% endblock %}
+</body>
+
+</html>

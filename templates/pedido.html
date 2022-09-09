@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <script src="../static/pedido.js"></script>
+    <link rel="stylesheet" href="../static/forms.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    {% extends "base.html"%}
+
+    {% block content %}
+    <form class="boxpedido" action="/inicial/pedido" method="post" onSubmit="return valida_dados(this)">
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Pedido</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="paciente" class="form-control" placeholder="Paciente *">
+
+                            </div>
+                            <div class="form-group">
+                                <select name="cliente" class="form-control">
+                                    <option disabled> Selecione o Cliente * </option>
+                                    {% for item in clientes %}
+                                    <option> {{ item.nome_clinica }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select  name="servico" class="form-control">
+                                    <option disabled> Selecione o Serviço * </option>
+
+                                    {% for item in servicos %}
+                                    <option> {{ item.servico }}; {{ item.valor }} </option>
+                                    {% endfor %}
+                                </select>
+
+                            </div>
+
+
+                            <button type="submit" class="btnSubmit">Cadastrar</button>
+                            <a href="/inicial" style="text-decoration:none"><button class="btnCancel">Cancelar </button></a>
+                        </div>
+                    </div>
+    </form>
+    {%endblock%}
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/inicial.css">
+    <title>ArqueSys - Página Inicial</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    {% extends "base.html"%}
+
+    {% block content %}
+    
+    <div class="box">
+        <div class="container">
+             <div class="row">
+                 
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-mão-com-caneta-64.png" ></img>                            
+                            <div class="title">
+                                <h4>Pedido</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Insira um novo pedido.</span>
+                            </div>
+                            
+                            <a href="/inicial/pedido" style="text-decoration:none" ><button class="pedido">Novo pedido</button></a>
+                            
+                         </div>
+                    </div>	 
+                    
+                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-entrega-64.png" ></img>                            
+                        
+                            <div class="title">
+                                <h4>Serviço</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Cadastre um novo Serviço</span>
+                            </div>
+                            
+                            <a href="/inicial/servico" style="text-decoration:none" ><button class="servico">Novo serviço</button></a>
+                            
+                         </div>
+                    </div>	 
+                    
+                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/cliente.png" ></img>                            
+                            
+                            <div class="title">
+                                <h4>Cliente</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Cadastre um novo cliente</span>
+                            </div>
+                            
+                            <a href="/inicial/cliente" style="text-decoration:none" ><button class="cliente">Novo cliente</button></a>
+                            
+                         </div>
+                    </div>	 
+                    
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-confiança-64.png" ></img>
+                            
+                            <div class="title">
+                                <h4>Fornecedor</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Cadastre um Novo Fornecedor</span>
+                            </div>
+                            
+                            <a href="/inicial/fornecedor" style="text-decoration:none" ><button class="fornecedor">Novo fornecedor</button></a>
+                            
+                         </div>
+                    </div>	 
+                    
+                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-lista-de-tarefas.gif" style="width: 64px; height: 64x" ></img>                            
+                        
+                            <div class="title">
+                                <h4>Lista de Compras</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Cadastre uma Lista de Compras</span>
+                            </div>
+                            
+                            <a href="/inicial/compras" style="text-decoration:none" ><button class="compras">Nova lista de compras</button></a>
+                            
+                         </div>
+                    </div>	 
+                    
+                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/cliente.png" ></img>                            
+                            
+                            <div class="title">
+                                <h4>Pagamento</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Registre um novo pagamento</span>
+                            </div>
+                            
+                            <a href="/inicial/pagamentos" style="text-decoration:none" ><button class="pagamentos">Novo pagamento</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-pesquisa-64.png" ></img>                            
+                            
+                            <div class="title">
+                                <h4>Lista de Pedidos</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte a Lista de Pedidos</span>
+                            </div>
+                            
+                            <a href="/inicial/lista/pedidos" style="text-decoration:none" ><button class="listapedidos">Pedidos</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-pesquisa-64.png" ></img>                            
+                            
+                            <div class="title">
+                                <h4>Lista de Serviços</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte a Lista de Serviços</span>
+                            </div>
+                            
+                            <a href="/inicial/lista/servico" style="text-decoration:none" ><button class="listaservico">Serviços</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-pesquisa-64.png" ></img>                            
+                            
+                            <div class="title">
+                                <h4>Lista de Clientes</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte a Lista de Clientes</span>
+                            </div>
+                            
+                            <a href="/inicial/lista/cliente" style="text-decoration:none" ><button class="listacliente">Clientes</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-pesquisa-64.png" ></img>                            
+                            
+                            <div class="title">
+                                <h4>Fornecedores</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte a Lista de Fornecedores</span>
+                            </div>
+                            
+                            <a href="/inicial/lista/fornecedor" style="text-decoration:none" ><button class="listafornecedores">Fornecedores</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-pesquisa-64.png" ></img>                            
+                            <div class="title">
+                                <h4>Lista de Compras</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte a Lista de Compras</span>
+                            </div>
+                            
+                            <a href="/inicial/lista/compras" style="text-decoration:none" ><button class="listacompras">Lista de compras</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/icons8-doar-64.png" ></img>                            
+                            <div class="title">
+                                <h4>Lista de Pagamentos</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte o relatorio de pagamentos
+                                </span>
+                            </div>
+                            
+                            <a href="/inicial/lista/pagamentos" style="text-decoration:none" ><button class="listapagamentos">Lista de Pagamentos</button></a>
+                            
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                   
+                        <div class="box-part text-center">
+                            
+                            <img aria-hidden="true" src="../static/assets/relatorio.png" ></img>                            
+                            <div class="title">
+                                <h4>Relatórios</h4>
+                            </div>
+                            
+                            <div class="text">
+                                <span>Consulte a Lista de Relatórios</span>
+                            </div>
+                            
+                            <a href="/inicial/relatorios" style="text-decoration:none" ><button class="relatorio">Relatórios</button></a>
+                            
+                         </div>
+                    </div>
+            </div>		
+        </div>
+    </div>
+    {%endblock%}
+    
+</body>
+</html>

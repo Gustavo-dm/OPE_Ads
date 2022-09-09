@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Detalhes</title>
+    <script type="text/javascript">
+        var excluir = boxservico.querySelector(".excluir")
+        var alterar = boxservico.querySelector(".alterar")
+        var gravar = boxservico.querySelector(".gravar")
+        gravar.disabled = true;
+    </script>
+</head>
+<body>
+    <button class="alterar" > Alterar </button>
+    <button class="excluir" > Excluir </button>
+    {% for item in pagamento %}
+    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}" method="post">
+        {% endfor %}
+        <div>
+            <label> Número pagamento </label>
+            {% for item in pagamentos %}
+            <input type="text" id="num_pagamento" value="{{item.id}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Valor </label>
+            {% for item in pagamentos %}
+            <input type="text" class="valor" name="valor" value="{{item.valor}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Data </label>
+            {% for item in pagamentos %}
+            <input type="text" class="data" name="data" value="{{item.data_finalizacao}}" readonly>
+            {% endfor %}
+        </div>
+        <button class="gravar" type="submit"> Gravar </button>
+    </form>
+</body>
+</html>

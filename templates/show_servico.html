@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviço Detalhes</title>
+    <script type="text/javascript">
+        var excluir = boxservico.querySelector(".excluir")
+        var alterar = boxservico.querySelector(".alterar")
+        var gravar = boxservico.querySelector(".gravar")
+        gravar.disabled = true;
+    </script>
+</head>
+<body>
+    <button class="alterar" > Alterar </button>
+    <button class="excluir" > Excluir </button>
+    {% for item in servico %}
+    <form class="boxservico" action="/inicial/servico/{{item.id}}" method="post">
+        {% endfor %}
+        <div>
+            <label> Número serviço </label>
+            {% for item in servico %}
+            <input type="text" id="num_servico" value="{{item.id}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Serviço </label>
+            {% for item in servico %}
+            <input type="text" class="servico" name="servico" value="{{item.servico}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Valor </label>
+            {% for item in servico %}
+            <input type="text" class="valor" name="valor" value="{{item.valor}}" readonly>
+            {% endfor %}
+        </div>
+        <button class="gravar" type="submit"> Gravar </button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Relatório </title>
+
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" 
+        rel="Stylesheet"
+        type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#inicial").datepicker({
+                showOn: "button",
+                buttonImage: "./icons8-calendar-48.png",    
+                buttonImageOnly: true
+            });
+            $("#final").datepicker({
+                showOn: "button",
+                buttonImage: "./icons8-calendar-48.png",    
+                buttonImageOnly: true
+            });
+        });
+    </script>
+  
+    <style type="text/css">
+        .ui-datepicker-trigger { 
+            max-height: 28px;
+        }
+    </style>
+</head>
+<body>
+    <form class="form-group-relatorio" method="post" action="/inicial/relatorios">
+        Clínica:
+        <select class="clinica" name="clinica">
+            <option></option>
+            {% for item in clinica %}
+            <option> {{item.nome_clinica}} </option>
+            {% endfor %}
+        </select>
+        Período Inicial:
+        <input id="inicial" name="inicial" type="text" class="form-control">
+        Período Final:
+        <input id="final" name="final" type="text" class="form-control">
+        <input type="submit" placeholder="Visualizar">
+    </form>
+    <button type="text"> Enviar por email</button>
+    <button type="text"> Enviar por whatsapp</button>
+</body>
+</html>

@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Clientes </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/forms.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+        <script src="../static/cliente.js" defer></script>
+        
+</head>
+<body>
+    {% extends "base.html"%}
+
+    {% block content %}
+
+<form class="boxcliente" action="/inicial/cliente" method="post" onSubmit="return valida_dados(this)">
+        
+<div class="container register-form">
+    <div class="form">
+        <div class="note">
+            <p>Cadastro de Clientes.</p>
+        </div>
+
+        <div class="form-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" name="clinica" class="form-control" placeholder="Clinica *" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Endereço *" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <select name="estado" class="form-control" >
+                            <option selected disabled> Selecione o Estado * </option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                            <option value="EX">Estrangeiro</option>
+                    </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="bairro" class="form-control" placeholder="Bairro *" value=""/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" name="telefone" maxlenght="11" class="form-control" placeholder="Telefone *" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="numero" class="form-control" placeholder="Número *" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="cidade" class="form-control" placeholder="Cidade *" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="complemento" class="form-control" placeholder="Complemento *" value=""/>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btnSubmit">Submit</button>
+        </div>
+    </div>
+</div>
+
+    </form>
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

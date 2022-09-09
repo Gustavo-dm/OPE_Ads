@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente Detalhes </title>
+    <script src="../static/show_cliente.js"></script>
+    <link rel="stylesheet" href="../static/shared.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    {% extends "base.html"%}
+
+    {% block content %}
+
+    <button class="alterar" > Alterar </button>
+    <button class="excluir" > Excluir </button>
+    {% for item in cliente %}
+    <form class="boxcliente" action="/inicial/cliente/{{item.id}}" method="post">
+        {% endfor %}
+        <div>
+            <label> Número cliente </label>
+            {% for item in cliente %}
+            <input type="text" id="num_cliente" value="{{item.id}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Cliente </label>
+            {% for item in cliente %}
+            <input type="text" id="cliente" value="{{item.nome_clinica}}" readonly>
+            {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label> Endereço </label>
+            {% for item in cliente %}
+            <input type="text" class="endereco" name="endereco" value="{{item.endereco}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Número </label>
+            {% for item in cliente %}
+            <input type="text" class="numero" name="numero" value="{{item.numero}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Complemento </label>
+            {% for item in cliente %}
+            <input type="text" class="complemento" name="complemento" value="{{item.complemento}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Bairro </label>
+            {% for item in cliente %}
+            <input type="text" class="bairro" name="bairro" value="{{item.bairro}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Cidade </label>
+            {% for item in cliente %}
+            <input type="text" class="cidade" name="cidade" value="{{item.cidade}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Estado </label>
+            {% for item in cliente %}
+            <input type="text" class="estado" name="estado" value="{{item.estado}}" readonly>
+            {% endfor %}
+        </div>
+        <div>
+            <label> Telefone </label>
+            {% for item in cliente %}
+            <input type="text" class="telefone" name="telefone" value="{{item.telefone}}" readonly>
+            {% endfor %}
+        </div>
+        <button class="gravar" type="submit"> Gravar </button>
+    </form>
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamentos </title>
+    <link rel="stylesheet" href="../static/forms.css">
+    <script src="../static/pagamentos.js"></script>
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    {% extends "base.html"%}
+    {% block content %}
+
+    <form class="boxpagamentos" action="/inicial/pagamentos" method="post">
+
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Pagamentos</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <select name="cliente" class="form-control">
+                                    <option> Selecione </option>
+                                    {% for item in clientes %}
+                                    <option> {{ item.nome_clinica }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="valor" class="form-control" placeholder="Valor *" />
+                            </div>
+                            <div class="form-group">
+                                <input type="datetime-local" name="data" class="form-control" placeholder="Data *" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btnSubmit">Submit</button>
+                    <a href="/inicial" style="text-decoration:none"><button class="btnCancel">Cancelar </button></a>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endblock %}
+</body>
+
+</html>
