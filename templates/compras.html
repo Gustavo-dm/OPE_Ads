@@ -25,7 +25,8 @@
     {% extends "base.html"%}
 
     {% block content %}
-    <div class="container register-form">
+    <form class="boxcompras" action="/inicial/compras" method="post" onSubmit="return valida_dados(this)">
+        <div class="container register-form">
         <div class="form">
             <div class="note">
                 <p>Lista de Compras</p>
