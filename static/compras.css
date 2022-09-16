@@ -1,0 +1,12 @@
+@import url(shared.css);
+
+.mb-3 {
+    margin: 10px;
+    width: 75%;
+}
+
+.form-select{
+    margin: 10px;
+    width: 75%;
+
+}

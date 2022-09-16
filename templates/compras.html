@@ -39,6 +39,7 @@
 
                             <select class="form-select" aria-label="fornecedor" >
                                 {% for item in fornecedores %}
+                                <option aria-placeholder="Selecione o fornecedor" value="Selecione o fornecedor"> </option>
                                 <option > {{ item.nome_forne }} </option>
                                 {% endfor %}
                               </select>

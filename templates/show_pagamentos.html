@@ -5,38 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento Detalhes</title>
-    <script type="text/javascript">
-        var excluir = boxservico.querySelector(".excluir")
-        var alterar = boxservico.querySelector(".alterar")
-        var gravar = boxservico.querySelector(".gravar")
-        gravar.disabled = true;
-    </script>
+    <script src="../static/show_pagamentos.js"></script>
+    <link rel="stylesheet" href="../static/forms.css">
+
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <button class="alterar" > Alterar </button>
-    <button class="excluir" > Excluir </button>
+    {% extends "base.html"%}
+    {% block content %}
     {% for item in pagamento %}
-    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}" method="post">
+    
+    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}" method="put">
+    <div class="container register-form">
+        <div class="form">
+            <div class="note">
+                <p>Pagamentos</p>
+            </div>
+
+            <div class="form-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
         {% endfor %}
         <div>
             <label> Número pagamento </label>
             {% for item in pagamentos %}
-            <input type="text" id="num_pagamento" value="{{item.id}}" readonly>
+            <input type="text" id="num_pagamento" value="{{item.id}}"   class="form-control">
             {% endfor %}
         </div>
         <div>
             <label> Valor </label>
             {% for item in pagamentos %}
-            <input type="text" class="valor" name="valor" value="{{item.valor}}" readonly>
+            <input type="text"  name="valor" value="{{item.valor}}"   class="form-control">
             {% endfor %}
         </div>
         <div>
             <label> Data </label>
             {% for item in pagamentos %}
-            <input type="text" class="data" name="data" value="{{item.data_finalizacao}}" readonly>
+            <input type="text"  name="data" value="{{item.data_finalizacao}}"   class="form-control">
             {% endfor %}
         </div>
+    </div>
+    </div>
+    <br>
+        <button class="alterar" > Alterar </button>
+        <button class="excluir" > Excluir </button>
         <button class="gravar" type="submit"> Gravar </button>
     </form>
+    {% endblock %}
+
 </body>
 </html>

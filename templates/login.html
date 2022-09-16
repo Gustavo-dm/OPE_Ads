@@ -9,9 +9,11 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 </head>
 
 <body>
+  
     <form class="box-login" action="login" method="post">
 
         <div class="container register-form">
@@ -24,6 +26,16 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                {% block content %}
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages%}
+                                        {% for msg in messages %}
+                                         
+                                        <p>{{msg}} </p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                                {% endblock %}
                                 <input type="email" class="form-control" name="email" placeholder="Digite o seu email">
                             </div>
                             <div class="form-group">
@@ -32,6 +44,7 @@
 
                             </div>
                         </div>
+                
                     </div>
 
                 </div>
