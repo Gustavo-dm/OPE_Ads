@@ -487,10 +487,10 @@ def lista_pagamentos():
 @app.route('/inicial/pagamentos/<int:nid>/editar', methods=['POST'], endpoint='edita_pagamentos')
 @login_required
 def edita_pagamentos(nid):
-    nome_clinica = request.form.get('nome_clinica', '')
+    cliente = request.form.get('cliente', '')
     valor = request.form.get('valor', '')
     db.session.query(Pagamentos).filter_by(id=nid).update({
-        'nome_clinica': nome_clinica,
+        'cliente': cliente,
         'valor': valor
     })
     db.session.commit()
