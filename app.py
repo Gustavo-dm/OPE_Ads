@@ -484,6 +484,25 @@ def lista_pagamentos():
     data = Pagamentos.query.all()
     return render_template('lista_pagamentos.html', data=data)
 
+@app.route('/inicial/pagamentos/<int:nid>/editar', methods=['POST'], endpoint='edita_pagamentos')
+@login_required
+def edita_pagamentos(nid):
+    nome_clinica = request.form.get('nome_clinica', '')
+    valor = request.form.get('valor', '')
+    db.session.query(Pagamentos).filter_by(id=nid).update({
+        'nome_clinica': nome_clinica,
+        'valor': valor
+    })
+    db.session.commit()
+    return show_pagamentos(nid)
+
+@app.route('/inicial/pagamentos/<int:nid>/deletar', methods=['POST'], endpoint='deleta_pagamentos')
+@login_required
+def deleta_pagamentos(nid):
+    db.session.query(Pagamentos).filter_by(id=nid).delete()
+    db.session.commit()
+    return redirect('/inicial/pagamentos', code=302)
+
 #relatório
 @app.route('/inicial/relatorios', methods=['GET'], endpoint='get_relatorios')
 @login_required
