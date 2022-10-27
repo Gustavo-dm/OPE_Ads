@@ -2,7 +2,7 @@
 
 ### Conexão com banco de dados
 - **['SQLALCHEMY_DATABASE_URI']**: indica a url de conexão com o banco de dados mysql
-
+- `pip install -r requirements.txt`
 ### Rotas
 
 #### Route _"/"_

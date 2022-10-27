@@ -1,3 +1,4 @@
+
 :root {
     --darker_blue: #030140;
     --medium_blue: #2e338c;
@@ -13,4 +14,11 @@
 
   .navbar-light .navbar-nav .nav-link {
     color: #000000;
+    transition: 0.3s;
+
 }
+
+.nav-link:hover {
+  opacity: 1;
+  background-color: rgb(205, 205, 207);
+  }
