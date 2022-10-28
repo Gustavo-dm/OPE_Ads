@@ -83,7 +83,7 @@ def recuperar():
             _username = login['email']
             _Newpassword = login['NewPassword']
             db.session.query(Usuarios).filter_by(username=_username).update({
-                'password': _Newpassword
+                'password': sha256_crypt.hash(_Newpassword)
             })
             db.commit()
             print("Senha alterada")
@@ -450,7 +450,7 @@ def post_pagamento():
     valor = request.form.get('valor', '')
     #data_string = request.form.get('data', '')
     data_notok = datetime.datetime.now()
-    data = data_notok.strftime("%Y/%m/%dT%H:%M")
+    data = data_notok
     if cliente:
         pagamentos = Pagamentos(cliente, valor, data)
         db.session.add(pagamentos)

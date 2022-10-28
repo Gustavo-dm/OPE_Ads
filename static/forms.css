@@ -47,3 +47,19 @@
     background: #757475;
     color: #fff;
 }
+
+
+.button {
+    background-color: rgb(33, 20, 220);  
+    border-radius: 5px;
+    color: white;
+    padding: .5em;
+    text-decoration: none;
+  }
+
+
+.button:focus,
+.button:hover {
+  background-color: rgb(19, 43, 151);
+  color: White;
+}

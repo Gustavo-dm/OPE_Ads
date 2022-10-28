@@ -1,36 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../static/forms.css">
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% for item in pedido %}
     <title>Pedido Detalhes - {{ item.id}} </title>
     {% endfor %}
-    <script type="text/javascript">
-        var excluir = boxpedidocadastrado.querySelector(".excluir")
-        var alterar = boxpedidocadastrado.querySelector(".alterar")
-        var reabrir = boxpedidocadastrado.querySelector(".reabrir")
-        reabrir.disabled = true;
-        function finalizar_pedido(boxpedidocadastrado){
-            var fin = confirm('Deseja finalizar o pedido?');
-            if (fin==true){
-                excluir.disabled = true;
-                alterar.disabled = true;
-                reabrir.disabled = false;
-            }
-            else{
-                excluir.disabled = false;
-                alterar.disabled = false;
-                reabrir.disabled = true;
-            }
-        }
-    </script>
+
+    <script src="../static/show_pedido.js"></script>
+
 </head>
 <body>
-    <button class="alterar" > Alterar </button>
-    <button class="excluir" > Excluir </button>
-    <button class="reabrir" > Reabrir </button>
+    
     {% for item in pedido %}
     <form class="boxpedidocadastrado" action="/inicial/pedido/{{ item.id}}" method="post">
         {% endfor %}
@@ -66,6 +53,8 @@
             {% endfor %}
         </div>
         <button class="finalizar" type="submit" onclick="finalizar_pedido()" > Finalizar </button>
+        <a class="gravar" href="/inicial/lista/pedidos"> Ok </a>
+
     </form>
 </body>
 </html>

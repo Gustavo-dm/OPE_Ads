@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fornecedor Detalhes </title>
-    <script type="text/javascript">
-        var excluir = boxfornecedor.querySelector(".excluir")
-        var alterar = boxfornecedor.querySelector(".alterar")
-        var gravar = boxfornecedor.querySelector(".gravar")
-        gravar.disabled = true;
-    </script>
+    <script src="../static/show_fornecedor.js"></script>
+    <link rel="stylesheet" href="../static/forms.css">
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-    <button class="alterar" > Alterar </button>
-    <button class="excluir" > Excluir </button>
+
     {% for item in forne %}
     <form class="boxfornecedor" action="/inicial/fornecedor/{{item.id}}" method="post">
         {% endfor %}
@@ -73,7 +74,8 @@
             <input type="text" class="telefone" name="telefone" value="{{item.telefone}}" readonly>
             {% endfor %}
         </div>
-        <button class="gravar" type="submit"> Gravar </button>
+        <a class="gravar" href="/inicial/lista/fornecedor"> Ok </a>
     </form>
 </body>
+
 </html>
