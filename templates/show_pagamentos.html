@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,48 +14,53 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
     {% extends "base.html"%}
     {% block content %}
     {% for item in pagamento %}
-    
-    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}" method="put">
-    <div class="container register-form">
-        <div class="form">
-            <div class="note">
-                <p>Pagamentos</p>
-            </div>
 
-            <div class="form-content">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-        {% endfor %}
-        <div>
-            <label> Número pagamento </label>
-            {% for item in pagamentos %}
-            <input type="text" id="num_pagamento" value="{{item.id}}"   class="form-control">
-            {% endfor %}
-        </div>
-        <div>
-            <label> Valor </label>
-            {% for item in pagamentos %}
-            <input type="text"  name="valor" value="{{item.valor}}"   class="form-control">
-            {% endfor %}
-        </div>
-        <div>
-            <label> Data </label>
-            {% for item in pagamentos %}
-            <input type="text"  name="data" value="{{item.data_finalizacao}}"   class="form-control">
-            {% endfor %}
-        </div>
-    </div>
-    </div>
-    <br>
-        
-        <a  class="btnSecondary" href="/inicial/lista/pagamentos"> Ok </a>
+    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}" method="put">
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Pagamentos</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {% endfor %}
+                                <div>
+                                    <label> Número pagamento </label>
+                                    {% for item in pagamentos %}
+                                    <input type="text" id="num_pagamento" value="{{item.id}}" class="form-control">
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Valor </label>
+                                    {% for item in pagamentos %}
+                                    <input type="text" name="valor" value="{{item.valor}}" class="form-control">
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Data </label>
+                                    {% for item in pagamentos %}
+                                    <input type="text" name="data" value="{{item.data_finalizacao}}"
+                                        class="form-control">
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <button class='btn btn-info btn-xs'>
+                            <a href="/inicial/lista/pagamentos"> Ok </a>
+                        </button>
     </form>
     {% endblock %}
 
 </body>
+
 </html>

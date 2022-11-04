@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,13 +14,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
 <body>
     {% extends "base.html"%}
 
     {% block content %}
 
-    <button class="alterar" > Alterar </button>
-    <button class="excluir" > Excluir </button>
+
     {% for item in cliente %}
     <form class="boxcliente" action="/inicial/cliente/{{item.id}}" method="post">
         {% endfor %}
@@ -78,9 +79,12 @@
             <input type="text" class="telefone" name="telefone" value="{{item.telefone}}" readonly>
             {% endfor %}
         </div>
-        <button class="gravar" type="submit"> Gravar </button>
+        <button class='btn btn-info btn-xs'>
+            <a href="/inicial/lista/clientes"> Ok </a>
+        </button>
     </form>
     {% endblock %}
 
 </body>
+
 </html>

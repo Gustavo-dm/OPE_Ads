@@ -15,6 +15,9 @@
 </head>
 
 <body>
+    {% extends "base.html"%}
+
+    {% block content %}
 
     {% for item in forne %}
     <form class="boxfornecedor" action="/inicial/fornecedor/{{item.id}}" method="post">
@@ -74,8 +77,12 @@
             <input type="text" class="telefone" name="telefone" value="{{item.telefone}}" readonly>
             {% endfor %}
         </div>
-        <a class="gravar" href="/inicial/lista/fornecedor"> Ok </a>
+        <button class='btn btn-info btn-xs'>
+            <a href="/inicial/lista/fornecedor"> Ok </a>
+        </button>
     </form>
+    {% endblock %}
+
 </body>
 
 </html>
