@@ -1,53 +1,58 @@
-import pdfkit
-from datetime import datetime
-from flask import flash, session, render_template, request, redirect, make_response
-from models import *
-from passlib.hash import sha256_crypt
 from __init__ import create_app
-
+from passlib.hash import sha256_crypt
+# import pdfkit
+from datetime import datetime
+from flask import flash, render_template, request, redirect
+from flask import session as login_session
+from models import Usuarios, Pedidos, Contatos, Compras, Clientes, Servicos, Fornecedores, Pagamentos
+from db import session
 
 app = create_app()
 
+
+@app.route('/')
+def inicio():
+    if not login_session.get('logged_in'):
+        return redirect("/login")
+    else:
+        return redirect("/inicial")
+
+
 def login_required(func):
     def secure_function(**kwargs):
-        if not session.get('logged_in'):
+        if not login_session.get('logged_in'):
             return redirect("/login")
         return func(**kwargs)
     return secure_function
 
-@app.route('/')
-def inicio():
-  if not session.get('logged_in'):
-    return redirect("/login")
-  else:
-    return redirect("/inicial")
 
 @app.route('/login', methods=['GET'])
 def login():
-    if not session.get('logged_in'):
+    if not login_session.get('logged_in'):
         return render_template('login.html')
     else:
         return redirect("/inicial")
 
+
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-  login = request.form
-  username = login['email']
-  password = login['password']
-  usuario = Usuarios.query.filter_by(username=username).first()
-  db.session.commit()
-  account = False
-  try:
-    if sha256_crypt.verify(password, usuario.password):
-        account = True
-  except Exception as error:
-    return 'Problema: '+ str(error)
+    login = request.form
+    username = login['email']
+    password = login['password']
+    usuario = Usuarios.query.filter_by(username=username).first()
+    session.commit()
+    account = False
+    try:
+        if sha256_crypt.verify(password, usuario.password):
+            account = True
+    except Exception as error:
+        return 'Problema: ' + str(error)
+    if account:
+        login_session['logged_in'] = True
+    else:
+        flash('Senha incorreta!')
+    return inicio()
 
-  if account:
-    session['logged_in'] = True
-  else:
-    flash('Senha incorreta!')
-  return inicio()
 
 @app.route('/criar-usuario', methods=['GET', 'POST'], endpoint='criarusuario')
 def criarusuario():
@@ -61,37 +66,38 @@ def criarusuario():
             email = ""
             if username and password:
                 usuario = Usuarios(username, password, email)
-                db.session.add(usuario)
-                db.session.commit()
-            return render_template('criar_usuario.html')
+                session.add(usuario)
+                session.commit()
+            return render_template('login.html')
         except Exception as error:
-            return 'Problema de inserção no banco de dados: '+ str(error)
-            print('Problema de inserção no banco de dados: '+ str(error))
+            return 'Problema de inserção no banco de dados: ' + str(error)
+
 
 @app.route('/logout', endpoint='logout')
 @login_required
 def logout():
-  session['logged_in'] = False
-  return redirect("/login")
+    login_session['logged_in'] = False
+    return redirect("/login")
 
-@app.route('/recuperar',methods=['GET', 'POST'], endpoint='recuperar')
+
+@app.route('/recuperar', methods=['GET', 'POST'], endpoint='recuperar')
 def recuperar():
     if request.method == 'GET':
         return render_template("recuperar.html")
     if request.method == 'POST':
         try:
-            _username = login['email']
-            _Newpassword = login['NewPassword']
-            db.session.query(Usuarios).filter_by(username=_username).update({
-                'password': sha256_crypt.hash(_Newpassword)
+            username = login['email']
+            Newpassword = login['NewPassword']
+            session.query(Usuarios).filter_by(username=username).update({
+                'password': sha256_crypt.hash(Newpassword)
             })
-            db.commit()
+            session.commit()
             print("Senha alterada")
             return render_template("/login.html")
         except Exception as error:
-            print('Problema x: '+ str(error))
+            print('Problema x: ' + str(error))
             return render_template("recuperar.html")
-  
+
 
 @app.route('/contato', methods=['GET', 'POST'], endpoint='')
 @login_required
@@ -106,24 +112,28 @@ def contato():
             _phone = request.form['user_phone']
             if _name and _email and _phone:
                 contact = Contatos(_name, _email, _phone)
-                db.session.add(contact)
-                db.session.commit()
+                session.add(contact)
+                session.commit()
             return render_template('contato.html')
         except Exception as error:
-            print('Problema de inserção no banco de dados: '+ str(error))
-        
+            print('Problema de inserção no banco de dados: ' + str(error))
+
+
 @app.route('/inicial', methods=['GET'], endpoint='inicial')
 @login_required
 def inicial():
     return render_template('inicial.html')
 
-#pedido
+# pedido
+
+
 @app.route('/inicial/pedido', methods=['GET'], endpoint='get_pedido')
 @login_required
 def get_pedido():
     servicos = Servicos.query.all()
     clientes = Clientes.query.all()
     return render_template('pedido.html', servicos=servicos, clientes=clientes)
+
 
 @app.route('/inicial/pedido', methods=['POST'], endpoint='post_pedido')
 @login_required
@@ -136,29 +146,35 @@ def post_pedido():
         valor = servico_valor.split('; ')[1]
     if cliente:
         pedido = Pedidos(cliente, paciente, servico, valor)
-        db.session.add(pedido)
-        db.session.commit()
-        db.session.flush()
+        session.add(pedido)
+        session.commit()
+        session.flush()
         url = f"/inicial/pedido/{pedido.id}"
         return redirect(url, code=302)
     return render_template('show_pedido.html')
 
-@app.route('/inicial/pedido/<int:nid>', methods=['GET'], endpoint='show_pedido')
+
+@app.route('/inicial/pedido/<int:nid>',
+           methods=['GET'], endpoint='show_pedido')
 @login_required
 def show_pedido(nid):
     pedido = Pedidos.query.filter_by(id=nid).all()
-    db.session.commit()
+    session.commit()
     return render_template('show_pedido.html', pedido=pedido)
 
-@app.route('/inicial/pedido/<int:nid>', methods=['POST'], endpoint='finaliza_pedido')
+
+@app.route('/inicial/pedido/<int:nid>',
+           methods=['POST'], endpoint='finaliza_pedido')
 @login_required
 def finaliza_pedido(nid):
-    db.session.query(Pedidos).filter_by(id=nid).update({
+    now = datetime.now()
+    session.query(Pedidos).filter_by(id=nid).update({
         'status': 1,
-        'data_finalizacao': datetime.datetime.now()
+        'data_finalizacao': now.strftime("%Y/%m/%d, %H:%M:%S")
     })
-    db.session.commit()
+    session.commit()
     return show_pedido(nid)
+
 
 @app.route('/inicial/lista/pedidos', methods=['GET'], endpoint='lista_pedido')
 @login_required
@@ -166,7 +182,9 @@ def lista_pedido():
     data = Pedidos.query.limit(10).all()
     return render_template('lista_pedidos.html', data=data)
 
-@app.route('/inicial/pedido/<int:nid>/editar', methods=['POST'], endpoint='edita_pedido')
+
+@app.route('/inicial/pedido/<int:nid>/editar',
+           methods=['POST'], endpoint='edita_pedido')
 @login_required
 def edita_pedido(nid):
     cliente = request.form.get('cliente')
@@ -175,27 +193,32 @@ def edita_pedido(nid):
     if servico_valor != 'Selecione':
         servico = servico_valor.split(';')[0]
         valor = servico_valor.split('; ')[1]
-    db.session.query(Pedidos).filter_by(id=nid).update({
+    session.query(Pedidos).filter_by(id=nid).update({
         'clinica': cliente,
         'paciente': paciente,
         'servico': servico,
         'valor': valor
     })
-    db.session.commit()
+    session.commit()
     return show_pedido(nid)
 
-@app.route('/inicial/pedido/<int:nid>/deletar', methods=['POST'], endpoint='deleta_pedido')
+
+@app.route('/inicial/pedido/<int:nid>/deletar',
+           methods=['GET', 'POST'], endpoint='deleta_pedido')
 @login_required
 def deleta_pedido(nid):
-    db.session.query(Pedidos).filter_by(id=nid).delete()
-    db.session.commit()
+    session.query(Pedidos).filter_by(id=nid).delete()
+    session.commit()
     return redirect('/inicial/pedido', code=302)
 
-#cliente
+# cliente
+
+
 @app.route('/inicial/cliente', methods=['GET'], endpoint='get_cliente')
 @login_required
 def get_cliente():
     return render_template('cliente.html')
+
 
 @app.route('/inicial/cliente', methods=['POST'], endpoint='post_cliente')
 @login_required
@@ -209,20 +232,22 @@ def post_cliente():
     estado = request.form.get('estado', '')
     telefone = request.form.get('telefone', '')
     if clinica:
-        cliente = Clientes(clinica, endereco, numero, complemento, bairro, cidade, estado, telefone)
-        db.session.add(cliente)
-        db.session.commit()
-        db.session.flush()
-        url = f"/inicial/cliente/{cliente.id}"
-        return redirect(url, code=302)
+        cliente = Clientes(clinica, endereco, numero,
+                           complemento, bairro, cidade, estado, telefone)
+        session.add(cliente)
+        session.commit()
+        session.flush()
     return render_template('show_cliente.html')
 
-@app.route('/inicial/cliente/<int:nid>', methods=['GET'], endpoint='show_cliente')
+
+@app.route('/inicial/cliente/<int:nid>',
+           methods=['GET'], endpoint='show_cliente')
 @login_required
 def show_cliente(nid):
     cliente = Clientes.query.filter_by(id=nid).all()
-    db.session.commit()
+    session.commit()
     return render_template('show_cliente.html', cliente=cliente)
+
 
 @app.route('/inicial/lista/cliente', methods=['GET'], endpoint='lista_cliente')
 @login_required
@@ -230,7 +255,9 @@ def lista_cliente():
     data = Clientes.query.limit(10).all()
     return render_template('lista_cliente.html', data=data)
 
-@app.route('/inicial/cliente/<int:nid>/editar', methods=['POST'], endpoint='edita_cliente')
+
+@app.route('/inicial/cliente/<int:nid>/editar',
+           methods=['POST'], endpoint='edita_cliente')
 @login_required
 def edita_cliente(nid):
     clinica = request.form.get('clinica', '')
@@ -241,7 +268,7 @@ def edita_cliente(nid):
     cidade = request.form.get('cidade', '')
     estado = request.form.get('estado', '')
     telefone = request.form.get('telefone', '')
-    db.session.query(Clientes).filter_by(id=nid).update({
+    session.query(Clientes).filter_by(id=nid).update({
         'nome_clinica': clinica,
         'endereco': endereco,
         'numero': numero,
@@ -251,21 +278,26 @@ def edita_cliente(nid):
         'estado': estado,
         'telefone': telefone
     })
-    db.session.commit()
+    session.commit()
     return show_cliente(nid)
 
-@app.route('/inicial/cliente/<int:nid>/deletar', methods=['POST'], endpoint='deleta_cliente')
+
+@app.route('/inicial/cliente/<int:nid>/deletar',
+           methods=['POST'], endpoint='deleta_cliente')
 @login_required
 def deleta_cliente(nid):
-    db.session.query(Clientes).filter_by(id=nid).delete()
-    db.session.commit()
+    session.query(Clientes).filter_by(id=nid).delete()
+    session.commit()
     return redirect('/inicial/cliente', code=302)
 
-#servico
+# servico
+
+
 @app.route('/inicial/servico', methods=['GET'], endpoint='get_servico')
 @login_required
 def get_servico():
     return render_template('servico.html')
+
 
 @app.route('/inicial/servico', methods=['POST'], endpoint='post_servico')
 @login_required
@@ -274,19 +306,22 @@ def post_servico():
     valor = request.form.get('valor', '')
     if servico:
         servicos = Servicos(servico, valor)
-        db.session.add(servicos)
-        db.session.commit()
-        db.session.flush()
+        session.add(servicos)
+        session.commit()
+        session.flush()
         url = f"/inicial/servico/{servicos.id}"
         return redirect(url, code=302)
     return render_template('show_servico.html')
 
-@app.route('/inicial/servico/<int:nid>', methods=['GET'], endpoint='show_servico')
+
+@app.route('/inicial/servico/<int:nid>',
+           methods=['GET'], endpoint='show_servico')
 @login_required
 def show_servico(nid):
     servico = Servicos.query.filter_by(id=nid).all()
-    db.session.commit()
+    session.commit()
     return render_template('show_servico.html', servico=servico)
+
 
 @app.route('/inicial/lista/servico', methods=['GET'], endpoint='lista_servico')
 @login_required
@@ -294,32 +329,41 @@ def lista_servico():
     data = Servicos.query.all()
     return render_template('lista_servico.html', data=data)
 
-@app.route('/inicial/servico/<int:nid>/editar', methods=['POST'], endpoint='edita_servico')
+
+@app.route('/inicial/servico/<int:nid>/editar',
+           methods=['PUT', 'POST'], endpoint='edita_servico')
 @login_required
 def edita_servico(nid):
     servico = request.form.get('servico', '')
     valor = request.form.get('valor', '')
-    db.session.query(Servicos).filter_by(id=nid).update({
+    session.query(Servicos).filter_by(id=nid).update({
         'servico': servico,
         'valor': valor
     })
-    db.session.commit()
+    session.commit()
     return show_servico(nid)
 
-@app.route('/inicial/servico/<int:nid>/deletar', methods=['POST'], endpoint='deleta_servico')
+
+@app.route('/inicial/servico/<int:nid>/deletar',
+           methods=['GET', 'POST'], endpoint='deleta_servico')
 @login_required
 def deleta_servico(nid):
-    db.session.query(Servicos).filter_by(id=nid).delete()
-    db.session.commit()
+    session.query(Servicos).filter_by(id=nid).delete()
+    session.commit()
     return redirect('/inicial/servico', code=302)
 
-#fornecedor
-@app.route('/inicial/fornecedor', methods=['GET'], endpoint='get_fornecedor')
+# fornecedor
+
+
+@app.route('/inicial/fornecedor',
+           methods=['GET'], endpoint='get_fornecedor')
 @login_required
 def get_fornecedor():
     return render_template('fornecedor.html')
 
-@app.route('/inicial/fornecedor', methods=['POST'], endpoint='post_fornecedor')
+
+@app.route('/inicial/fornecedor',
+           methods=['POST'], endpoint='post_fornecedor')
 @login_required
 def post_fornecedor():
     fornecedor = request.form.get('fornecedor', '')
@@ -331,28 +375,35 @@ def post_fornecedor():
     estado = request.form.get('estado', '')
     telefone = request.form.get('telefone', '')
     if fornecedor:
-        forne = Fornecedores(fornecedor, endereco, numero, complemento, bairro, cidade, estado, telefone)
-        db.session.add(forne)
-        db.session.commit()
-        db.session.flush()
+        forne = Fornecedores(fornecedor, endereco, numero,
+                             complemento, bairro, cidade, estado, telefone)
+        session.add(forne)
+        session.commit()
+        session.flush()
         url = f"/inicial/fornecedor/{forne.id}"
         return redirect(url, code=302)
     return render_template('show_fornecedor.html')
 
-@app.route('/inicial/fornecedor/<int:nid>', methods=['GET'], endpoint='show_fornecedor')
+
+@app.route('/inicial/fornecedor/<int:nid>',
+           methods=['GET'], endpoint='show_fornecedor')
 @login_required
 def show_fornecedor(nid):
     forne = Fornecedores.query.filter_by(id=nid).all()
-    db.session.commit()
+    session.commit()
     return render_template('show_fornecedor.html', forne=forne)
 
-@app.route('/inicial/lista/fornecedor', methods=['GET'], endpoint='lista_forne')
+
+@app.route('/inicial/lista/fornecedor',
+           methods=['GET'], endpoint='lista_forne')
 @login_required
 def lista_forne():
     data = Fornecedores.query.all()
     return render_template('lista_fornecedor.html', data=data)
 
-@app.route('/inicial/fornecedor/<int:nid>/editar', methods=['POST'], endpoint='edita_fornecedor')
+
+@app.route('/inicial/fornecedor/<int:nid>/editar',
+           methods=['POST'], endpoint='edita_fornecedor')
 @login_required
 def edita_fornecedor(nid):
     fornecedor = request.form.get('fornecedor', '')
@@ -363,7 +414,7 @@ def edita_fornecedor(nid):
     cidade = request.form.get('cidade', '')
     estado = request.form.get('estado', '')
     telefone = request.form.get('telefone', '')
-    db.session.query(Fornecedores).filter_by(id=nid).update({
+    session.query(Fornecedores).filter_by(id=nid).update({
         'nome_forne': fornecedor,
         'endereco': endereco,
         'numero': numero,
@@ -373,149 +424,175 @@ def edita_fornecedor(nid):
         'estado': estado,
         'telefone': telefone
     })
-    db.session.commit()
+    session.commit()
     return show_fornecedor(nid)
 
-@app.route('/inicial/fornecedor/<int:nid>/deletar', methods=['POST'], endpoint='deleta_fornecedor')
+
+@app.route('/inicial/fornecedor/<int:nid>/deletar',
+           methods=['GET', 'POST'], endpoint='deleta_fornecedor')
 @login_required
 def deleta_fornecedor(nid):
-    db.session.query(Fornecedores).filter_by(id=nid).delete()
-    db.session.commit()
+    session.query(Fornecedores).filter_by(id=nid).delete()
+    session.commit()
     return redirect('/inicial/fornecedor', code=302)
 
-#lista de compras
+# lista de compras
+
+
 @app.route('/inicial/compras', methods=['GET'], endpoint='get_compras')
 @login_required
 def get_compras():
     fornecedores = Fornecedores.query.limit(10).all()
     return render_template('compras.html', fornecedores=fornecedores)
 
-@app.route('/inicial/compras', methods=['POST'], endpoint='post_compras')
+
+@app.route('/inicial/compras',
+           methods=['POST'], endpoint='post_compras')
 @login_required
 def post_compras():
     fornecedor = request.form.get('fornecedor', '')
     descricao = request.form.get('valor', '')
     if descricao:
         compras = Compras(fornecedor, descricao)
-        db.session.add(compras)
-        db.session.commit()
-        db.session.flush()
+        session.add(compras)
+        session.commit()
+        session.flush()
         url = f"/inicial/compras/{compras.id}"
         return redirect(url, code=302)
     return render_template('show_compras.html')
 
-@app.route('/inicial/compras/<int:nid>', methods=['GET'], endpoint='show_compras')
+
+@app.route('/inicial/compras/<int:nid>',
+           methods=['GET'], endpoint='show_compras')
 @login_required
 def show_compras(nid):
     compras = Compras.query.filter_by(id=nid).all()
-    db.session.commit()
+    session.commit()
     return render_template('show_compras.html', compras=compras)
 
-@app.route('/inicial/lista/compras', methods=['GET'], endpoint='lista_compras')
+
+@app.route('/inicial/lista/compras',
+           methods=['GET'], endpoint='lista_compras')
 @login_required
 def lista_compras():
     data = Compras.query.limit(10).all()
     return render_template('lista_compras.html', data=data)
 
-@app.route('/inicial/compras/<int:nid>/editar', methods=['POST'], endpoint='edita_compras')
+
+@app.route('/inicial/compras/<int:nid>/editar',
+           methods=['POST'], endpoint='edita_compras')
 @login_required
 def edita_compras(nid):
     fornecedor = request.form.get('fornecedor', '')
     descricao = request.form.get('valor', '')
-    db.session.query(Compras).filter_by(id=nid).update({
+    session.query(Compras).filter_by(id=nid).update({
         'nome_forne': fornecedor,
         'descricao': descricao
     })
-    db.session.commit()
+    session.commit()
     return show_compras(nid)
 
-@app.route('/inicial/compras/<int:nid>/deletar', methods=['POST'], endpoint='deleta_compras')
+
+@app.route('/inicial/compras/<int:nid>/deletar',
+           methods=['GET', 'POST'], endpoint='deleta_compras')
 @login_required
 def deleta_compras(nid):
-    db.session.query(Compras).filter_by(id=nid).delete()
-    db.session.commit()
+    session.query(Compras).filter_by(id=nid).delete()
+    session.commit()
     return redirect('/inicial/compras', code=302)
 
-#pagamento
-@app.route('/inicial/pagamentos', methods=['GET'], endpoint='get_pagamento')
+# pagamento
+
+
+@app.route('/inicial/pagamentos',
+           methods=['GET'], endpoint='get_pagamento')
 @login_required
 def get_pagamento():
     clientes = Clientes.query.all()
     return render_template('pagamentos.html', clientes=clientes)
 
-@app.route('/inicial/pagamentos', methods=['POST'], endpoint='post_pagamento')
+
+@app.route('/inicial/pagamentos',
+           methods=['POST'], endpoint='post_pagamento')
 @login_required
 def post_pagamento():
     cliente = request.form.get('cliente', '')
     valor = request.form.get('valor', '')
-    #data_string = request.form.get('data', '')
-    data_notok = datetime.datetime.now()
-    data = data_notok
+    data = datetime.now()
     if cliente:
         pagamentos = Pagamentos(cliente, valor, data)
-        db.session.add(pagamentos)
-        db.session.commit()
-        db.session.flush()
+        session.add(pagamentos)
+        session.commit()
+        session.flush()
         url = f"/inicial/pagamentos/{pagamentos.id}"
         return redirect(url, code=302)
     return render_template('show_pagamentos.html')
 
-@app.route('/inicial/pagamentos/<int:nid>', methods=['GET'], endpoint='show_pagamentos')
+
+@app.route('/inicial/pagamentos/<int:nid>',
+           methods=['GET'], endpoint='show_pagamentos')
 @login_required
 def show_pagamentos(nid):
     pagamentos = Pagamentos.query.filter_by(id=nid).all()
-    db.session.commit()
     return render_template('show_pagamentos.html', pagamentos=pagamentos)
 
-@app.route('/inicial/lista/pagamentos', methods=['GET'], endpoint='lista_pagamentos')
+
+@app.route('/inicial/lista/pagamentos',
+           methods=['GET'], endpoint='lista_pagamentos')
 @login_required
 def lista_pagamentos():
     data = Pagamentos.query.all()
     return render_template('lista_pagamentos.html', data=data)
 
-@app.route('/inicial/pagamentos/<int:nid>/editar', methods=['POST'], endpoint='edita_pagamentos')
+
+@app.route('/inicial/pagamentos/<int:nid>/editar',
+           methods=['GET', 'POST'], endpoint='edita_pagamentos')
 @login_required
 def edita_pagamentos(nid):
     cliente = request.form.get('cliente', '')
     valor = request.form.get('valor', '')
-    db.session.query(Pagamentos).filter_by(id=nid).update({
+    session.query(Pagamentos).filter_by(id=nid).update({
         'cliente': cliente,
         'valor': valor
     })
-    db.session.commit()
-    return show_pagamentos(nid)
+    session.commit()
+    return redirect('lista_pagamentos.html')
 
-@app.route('/inicial/pagamentos/<int:nid>/deletar', methods=['POST'], endpoint='deleta_pagamentos')
+
+@app.route('/inicial/pagamentos/<int:nid>/deletar',
+           methods=['GET', 'POST'], endpoint='deleta_pagamentos')
 @login_required
 def deleta_pagamentos(nid):
-    db.session.query(Pagamentos).filter_by(id=nid).delete()
-    db.session.commit()
+    session.query(Pagamentos).filter_by(id=nid).delete()
+    session.commit()
     return redirect('/inicial/pagamentos', code=302)
 
-#relatório
+# relatório
+
+
 @app.route('/inicial/relatorios', methods=['GET'], endpoint='get_relatorios')
 @login_required
 def get_relatorios():
     clinica = Clientes.query.all()
     return render_template('relatorios_inicial.html', clinica=clinica)
-    
-@app.route('/inicial/relatorios', methods=['POST'], endpoint='post_relatorios')
-@login_required
-def post_relatorios():
-    clinica = request.form.get('clinica', '')
-    inicio = request.form.get('inicial', '')
-    fim = request.form.get('final', '')
-    data = db.session.query(Pedidos).filter(Pedidos.data_finalizacao)
-    #sql = 'SELECT id, clinica, paciente, servico, valor FROM pedidos WHERE date_format(data_finalizacao, %s) between "%s" and "%s" AND clinica=%s;'
-    
-    html = render_template('relatorio_layout.html', data=data)
-    pdf = pdfkit.from_string(html, False)
-    response = make_response(pdf)
-    response.headers["Content-Type"] = "application/pdf"
-    response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
-    return response
-    #return redirect(response, code=302)
+
+
+# @app.route('/inicial/relatorios',
+#            methods=['POST'], endpoint='post_relatorios')
+# @login_required
+# def post_relatorios():
+#     clinica = request.form.get('clinica', '')
+#     inicio = request.form.get('inicial', '')
+#     fim = request.form.get('final', '')
+#     data = session.query(Pedidos).filter(Pedidos.data_finalizacao)
+
+#     html = render_template('relatorio_layout.html', data=data)
+#     pdf = pdfkit.from_string(html, False)
+#     response = make_response(pdf)
+#     response.headers["Content-Type"] = "application/pdf"
+#     response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
+#     return response
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

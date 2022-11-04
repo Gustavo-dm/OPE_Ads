@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagamento Detalhes</title>
     <script src="../static/show_pagamentos.js"></script>
-    <link rel="stylesheet" href="../static/forms.css">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
     <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -18,9 +17,8 @@
 <body>
     {% extends "base.html"%}
     {% block content %}
-    {% for item in pagamento %}
 
-    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}" method="put">
+    <form class="boxservico" action="edita_pagamentos" method="POST">
         <div class="container register-form">
             <div class="form">
                 <div class="note">
@@ -31,11 +29,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {% endfor %}
                                 <div>
                                     <label> Número pagamento </label>
                                     {% for item in pagamentos %}
-                                    <input type="text" id="num_pagamento" value="{{item.id}}" class="form-control">
+                                    <input type="text" id="num_pagamento" value="{{item.id}}" readonly
+                                        class="form-control">
                                     {% endfor %}
                                 </div>
                                 <div>
@@ -45,19 +43,35 @@
                                     {% endfor %}
                                 </div>
                                 <div>
-                                    <label> Data </label>
+                                    <label> Cliente </label>
                                     {% for item in pagamentos %}
-                                    <input type="text" name="data" value="{{item.data_finalizacao}}"
+                                    <input type="text" name="cliente" value="{{item.nome_clinica}}"
                                         class="form-control">
                                     {% endfor %}
                                 </div>
+                                <div>
+                                    <label> Data </label>
+                                    {% for item in pagamentos %}
+                                    <input type="text" name="data" readonly value="{{item.data_finalizacao}}"
+                                        class="form-control">
+                                    </div>
+                                </div>
                             </div>
+                            <br>
                         </div>
-                        <br>
-
-                        <button class='btn btn-info btn-xs'>
-                            <a href="/inicial/lista/pagamentos"> Ok </a>
-                        </button>
+                        <button type="submit" class="btnSubmitShow">
+                            <a class ="anchorShow" href="/inicial/pagamentos/{{item.id}}/editar"> 
+                                Confirmar e Salvar
+                            </a>    
+                            {% endfor %}
+                    
+                    </button>
+                    <button class='btnCancelShow'>
+                        <a class="anchorShow" href="/inicial/lista/pagamentos"> Ir para Lista</a>
+                    </button>
+                </div>
+            </div>
+            
     </form>
     {% endblock %}
 

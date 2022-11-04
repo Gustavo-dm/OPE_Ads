@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fornecedor Detalhes </title>
     <script src="../static/show_fornecedor.js"></script>
-    <link rel="stylesheet" href="../static/forms.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
     <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -20,66 +20,89 @@
     {% block content %}
 
     {% for item in forne %}
-    <form class="boxfornecedor" action="/inicial/fornecedor/{{item.id}}" method="post">
-        {% endfor %}
-        <div>
-            <label> Número fornecedor </label>
-            {% for item in forne %}
-            <input type="text" id="num_forne" value="{{item.id}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Fornecedor </label>
-            {% for item in forne %}
-            <input type="text" id="fornecedor" value="{{item.nome_forne}}" readonly>
-            {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label> Endereço </label>
-            {% for item in forne %}
-            <input type="text" class="endereco" name="endereco" value="{{item.endereco}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Número </label>
-            {% for item in forne %}
-            <input type="text" class="numero" name="numero" value="{{item.numero}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Complemento </label>
-            {% for item in forne %}
-            <input type="text" class="complemento" name="complemento" value="{{item.complemento}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Bairro </label>
-            {% for item in forne %}
-            <input type="text" class="bairro" name="bairro" value="{{item.bairro}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Cidade </label>
-            {% for item in forne %}
-            <input type="text" class="cidade" name="cidade" value="{{item.cidade}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Estado </label>
-            {% for item in forne %}
-            <input type="text" class="estado" name="estado" value="{{item.estado}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Telefone </label>
-            {% for item in forne %}
-            <input type="text" class="telefone" name="telefone" value="{{item.telefone}}" readonly>
-            {% endfor %}
-        </div>
-        <button class='btn btn-info btn-xs'>
-            <a href="/inicial/lista/fornecedor"> Ok </a>
-        </button>
+    <form class="boxfornecedor" action="edita_fornecedor" method="post">
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Fornecedores</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {% endfor %}
+                                <div>
+                                    <label> Número fornecedor </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" id="num_forne" value="{{item.id}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Fornecedor </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" id="fornecedor" value="{{item.nome_forne}}"
+                                        readonly>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label> Endereço </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="endereco" name="endereco"
+                                        value="{{item.endereco}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Número </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="numero" name="numero"
+                                        value="{{item.numero}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Complemento </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="complemento" name="complemento"
+                                        value="{{item.complemento}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Bairro </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="bairro" name="bairro"
+                                        value="{{item.bairro}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Cidade </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="cidade" name="cidade"
+                                        value="{{item.cidade}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Estado </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="estado" name="estado"
+                                        value="{{item.estado}}" readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Telefone </label>
+                                    {% for item in forne %}
+                                    <input class="form-control" type="text" class="telefone" name="telefone"
+                                        value="{{item.telefone}}" readonly>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btnSubmitShow">Confirmar e Salvar</button>
+                    <button class='btnCancelShow'>
+                        <a class="anchorShow" href="/inicial/lista/fornecedor"> Ir para Lista</a>
+                    </button>
     </form>
     {% endblock %}
 

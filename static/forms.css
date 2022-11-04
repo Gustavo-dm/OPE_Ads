@@ -48,18 +48,28 @@
     color: #fff;
 }
 
-
-.button {
-    background-color: rgb(33, 20, 220);  
-    border-radius: 5px;
-    color: white;
-    padding: .5em;
+.btnSubmitShow
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 15%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+.btnCancelShow
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 15%;
+    cursor: pointer;
+    background: #cc0033;
+    color: #ffff;
     text-decoration: none;
-  }
-
-
-.button:focus,
-.button:hover {
-  background-color: rgb(19, 43, 151);
-  color: White;
+}
+.anchorShow {
+    color: #ffff;
+    text-decoration: none;
 }

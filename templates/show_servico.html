@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviço Detalhes</title>
     <script src="../static/show_servico.js"></script>
-    <link rel="stylesheet" href="../static/forms.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
     <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -15,32 +15,55 @@
 </head>
 
 <body>
+    {% extends "base.html"%}
+    {% block content %}
 
     {% for item in servico %}
-    <form class="boxservico" action="/inicial/servico/{{item.id}}" method="post">
-        {% endfor %}
-        <div>
-            <label> Número serviço </label>
-            {% for item in servico %}
-            <input type="text" id="num_servico" value="{{item.id}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Serviço </label>
-            {% for item in servico %}
-            <input type="text" class="servico" name="servico" value="{{item.servico}}" readonly>
-            {% endfor %}
-        </div>
-        <div>
-            <label> Valor </label>
-            {% for item in servico %}
-            <input type="text" class="valor" name="valor" value="{{item.valor}}" readonly>
-            {% endfor %}
-        </div>
-        <button class='btn btn-info btn-xs'>
-            <a href="/inicial/lista/servico"> Ok </a>
-        </button>
+    <form class="boxservico" action="edita_servico" method="post">
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Servicos</p>
+                </div>
+                {% endfor %}
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div>
+                                    <label> Número serviço </label>
+                                    {% for item in servico %}
+                                    <input type="text" id="num_servico" class="form-control" value="{{item.id}}"
+                                        readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Serviço </label>
+                                    {% for item in servico %}
+                                    <input type="text" class="form-control" name="servico" value="{{item.servico}}"
+                                        readonly>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <label> Valor </label>
+                                    {% for item in servico %}
+                                    <input type="text" class="form-control" name="valor" value="{{item.valor}}"
+                                        readonly>
+                                    {% endfor %}
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btnSubmitShow">Confirmar e Salvar</button>
+            <button class='btnCancelShow'>
+                <a href="/inicial/lista/servico"> Ir para Lista</a>
+            </button>
     </form>
+    {% endblock %}
+
 </body>
 
 </html>

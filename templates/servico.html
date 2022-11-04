@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Serviços </title>
     <script src="../static/servico.js"></script>
-    <link rel="stylesheet" href="../static/forms.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -37,7 +37,7 @@
                         </div>
 
                     </div>
-                    <button type="submit" class="btnSubmit">Submit</button>
+                    <button type="submit" class="btnSubmit">Cadastrar</button>
                     <a href="/inicial" style="text-decoration:none"><button class="btnCancel">Cancelar </button></a>
                 </div>
             </div>

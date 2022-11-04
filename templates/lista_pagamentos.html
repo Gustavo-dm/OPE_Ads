@@ -33,7 +33,7 @@
             <td> {{ item.data_finalizacao }} </td>
             <td class="text-center"><a class='btn btn-info btn-xs' href="/inicial/pagamentos/{{item.id}}"><span class="glyphicon glyphicon-edit"></span> Editar</a> 
                 
-                <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                <a href="/inicial/pagamentos/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
                 </td>  
         </tr>
         {% endfor %}
