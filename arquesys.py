@@ -36,9 +36,8 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def do_admin_login():
-    login = request.form
-    username = login['email']
-    password = login['password']
+    username = request.form['email']
+    password = request.form['password']
     usuario = Usuarios.query.filter_by(username=username).first()
     session.commit()
     account = False
@@ -62,7 +61,7 @@ def criarusuario():
     if request.method == 'POST':
         try:
             username = request.form['email']
-            password = password = sha256_crypt.hash(request.form['password'])
+            password =sha256_crypt.hash(request.form['password'])
             email = ""
             if username and password:
                 usuario = Usuarios(username, password, email)
@@ -86,8 +85,8 @@ def recuperar():
         return render_template("recuperar.html")
     if request.method == 'POST':
         try:
-            username = login['email']
-            Newpassword = login['NewPassword']
+            username = request.form['email']
+            Newpassword = request.form['NewPassword']
             session.query(Usuarios).filter_by(username=username).update({
                 'password': sha256_crypt.hash(Newpassword)
             })
