@@ -22,6 +22,7 @@
             <th> Serviço </th>
             <th> Valor </th>
             <th> Opções </th>
+            <th> </th>
 
         </tr>
         {% for item in data %}
@@ -30,9 +31,10 @@
             <td> {{ item.servico }} </td>
             <td> {{ item.valor }} </td>
             <td class="text-center"><a class='btn btn-info btn-xs' href="/inicial/servico/{{item.id}}"><span class="glyphicon glyphicon-edit"></span> Editar</a> 
-                
-                <a href="/inicial/servico/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-                </td>  
+            </td>  
+                <td>
+                    <a href="/inicial/servico/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                </td>
         </tr>
         {% endfor %}
     </table>

@@ -19,7 +19,7 @@
     {% block content %}
 
     {% for item in servico %}
-    <form class="boxservico" action="edita_servico" method="post">
+    <form class="boxservico" action="/inicial/servico/{{item.id}}/editar" method="post">
         <div class="container register-form">
             <div class="form">
                 <div class="note">
@@ -41,26 +41,30 @@
                                     <label> Serviço </label>
                                     {% for item in servico %}
                                     <input type="text" class="form-control" name="servico" value="{{item.servico}}"
-                                        readonly>
+                                        >
                                     {% endfor %}
                                 </div>
                                 <div>
                                     <label> Valor </label>
                                     {% for item in servico %}
                                     <input type="text" class="form-control" name="valor" value="{{item.valor}}"
-                                        readonly>
-                                    {% endfor %}
+                                        >
+                                    </div>
+                                    <br>
                                 </div>
-                                <br>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <button type="submit" class="btnSubmitShow">Confirmar e Salvar</button>
-            <button class='btnCancelShow'>
-                <a href="/inicial/lista/servico"> Ir para Lista</a>
-            </button>
+                <button type="submit" class="btnSubmitShow">
+                    <a class ="anchorShow" href="/inicial/servico/{{item.id}}"> 
+                        Confirmar e Salvar
+                    </a> 
+                </button>
+                <button class='btnCancelShow'>
+                    <a href="/inicial/lista/servico"> Ir para Lista</a>
+                </button>
+                {% endfor %}
     </form>
     {% endblock %}
 

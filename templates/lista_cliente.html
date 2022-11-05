@@ -25,6 +25,7 @@
             <th> Endereço </th>
             <th> Telefone </th>
             <th> Opções </th>
+            <th>  </th>
 
 
         </tr>
@@ -39,9 +40,11 @@
             </td>
             <td> {{ item.telefone }} </td>
             <td class="text-center"><a class='btn btn-info btn-xs' href="/inicial/cliente/{{item.id}}"><span class="glyphicon glyphicon-edit"></span> Editar</a> 
-                
-                <a href="/inicial/cliente/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-                </td>   
+            </td>   
+                <td>
+
+                    <a href="/inicial/cliente/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                </td>
                 
         </tr>
         {% endfor %}

@@ -184,15 +184,13 @@ def lista_pedido():
 
 
 @app.route('/inicial/pedido/<int:nid>/editar',
-           methods=['POST'], endpoint='edita_pedido')
+           methods=['GET', 'POST'], endpoint='edita_pedido')
 @login_required
 def edita_pedido(nid):
-    cliente = request.form.get('cliente')
-    paciente = request.form.get('paciente', '')
-    servico_valor = request.form.get('servico')
-    if servico_valor != 'Selecione':
-        servico = servico_valor.split(';')[0]
-        valor = servico_valor.split('; ')[1]
+    cliente = str(request.form['cliente'])
+    paciente = request.form['paciente']
+    servico = str(request.form['servico'])
+    valor = request.form['valor']
     session.query(Pedidos).filter_by(id=nid).update({
         'clinica': cliente,
         'paciente': paciente,
@@ -200,7 +198,7 @@ def edita_pedido(nid):
         'valor': valor
     })
     session.commit()
-    return show_pedido(nid)
+    return redirect('/inicial/lista/pedidos', code=302)
 
 
 @app.route('/inicial/pedido/<int:nid>/deletar',
@@ -257,19 +255,19 @@ def lista_cliente():
 
 
 @app.route('/inicial/cliente/<int:nid>/editar',
-           methods=['POST'], endpoint='edita_cliente')
+           methods=['GET', 'POST'], endpoint='edita_cliente')
 @login_required
 def edita_cliente(nid):
-    clinica = request.form.get('clinica', '')
-    endereco = request.form.get('endereco', '')
-    numero = request.form.get('numero', '')
-    complemento = request.form.get('complemento', '')
-    bairro = request.form.get('bairro', '')
-    cidade = request.form.get('cidade', '')
-    estado = request.form.get('estado', '')
-    telefone = request.form.get('telefone', '')
+    cliente = str(request.form['cliente'])
+    endereco = request.form['endereco']
+    numero = request.form['numero']
+    complemento = request.form['complemento']
+    bairro = request.form['bairro']
+    cidade = request.form['cidade']
+    estado = request.form['estado']
+    telefone = request.form['telefone']
     session.query(Clientes).filter_by(id=nid).update({
-        'nome_clinica': clinica,
+        'nome_clinica': cliente,
         'endereco': endereco,
         'numero': numero,
         'complemento': complemento,
@@ -279,11 +277,11 @@ def edita_cliente(nid):
         'telefone': telefone
     })
     session.commit()
-    return show_cliente(nid)
+    return redirect('/inicial/lista/cliente', code=302)
 
 
 @app.route('/inicial/cliente/<int:nid>/deletar',
-           methods=['POST'], endpoint='deleta_cliente')
+           methods=['GET', 'POST'], endpoint='deleta_cliente')
 @login_required
 def deleta_cliente(nid):
     session.query(Clientes).filter_by(id=nid).delete()
@@ -331,17 +329,17 @@ def lista_servico():
 
 
 @app.route('/inicial/servico/<int:nid>/editar',
-           methods=['PUT', 'POST'], endpoint='edita_servico')
+           methods=['POST'], endpoint='edita_servico')
 @login_required
 def edita_servico(nid):
-    servico = request.form.get('servico', '')
-    valor = request.form.get('valor', '')
+    servico = request.form['servico']
+    valor = request.form['valor']
     session.query(Servicos).filter_by(id=nid).update({
         'servico': servico,
         'valor': valor
     })
     session.commit()
-    return show_servico(nid)
+    return redirect('/inicial/lista/servico', code=302)
 
 
 @app.route('/inicial/servico/<int:nid>/deletar',
@@ -403,17 +401,17 @@ def lista_forne():
 
 
 @app.route('/inicial/fornecedor/<int:nid>/editar',
-           methods=['POST'], endpoint='edita_fornecedor')
+           methods=['GET', 'POST'], endpoint='edita_fornecedor')
 @login_required
 def edita_fornecedor(nid):
-    fornecedor = request.form.get('fornecedor', '')
-    endereco = request.form.get('endereco', '')
-    numero = request.form.get('numero', '')
-    complemento = request.form.get('complemento', '')
-    bairro = request.form.get('bairro', '')
-    cidade = request.form.get('cidade', '')
-    estado = request.form.get('estado', '')
-    telefone = request.form.get('telefone', '')
+    fornecedor = request.form['fornecedor']
+    endereco = request.form['endereco']
+    numero = request.form['numero']
+    complemento = request.form['complemento']
+    bairro = request.form['bairro']
+    cidade = request.form['cidade']
+    estado = request.form['estado']
+    telefone = request.form['telefone']
     session.query(Fornecedores).filter_by(id=nid).update({
         'nome_forne': fornecedor,
         'endereco': endereco,
@@ -425,7 +423,7 @@ def edita_fornecedor(nid):
         'telefone': telefone
     })
     session.commit()
-    return show_fornecedor(nid)
+    return redirect('/inicial/lista/fornecedor', code=302)
 
 
 @app.route('/inicial/fornecedor/<int:nid>/deletar',
@@ -549,14 +547,14 @@ def lista_pagamentos():
            methods=['GET', 'POST'], endpoint='edita_pagamentos')
 @login_required
 def edita_pagamentos(nid):
-    cliente = request.form.get('cliente', '')
-    valor = request.form.get('valor', '')
+    # cliente = request.form.get('cliente', '')
+    valor = float(request.form['valor'])
     session.query(Pagamentos).filter_by(id=nid).update({
-        'cliente': cliente,
+        # 'cliente': cliente,
         'valor': valor
     })
     session.commit()
-    return redirect('lista_pagamentos.html')
+    return redirect('/inicial/lista/pagamentos', code=302)
 
 
 @app.route('/inicial/pagamentos/<int:nid>/deletar',

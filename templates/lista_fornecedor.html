@@ -26,6 +26,7 @@
             <th> Endereço </th>
             <th> Telefone </th>
             <th> Opções </th>
+            <th>  </th>
         </tr>
         {% for item in data %}
         <tr>
@@ -36,9 +37,11 @@
                 {{ item.complemento }} 
                 {{ item.estado }}  </td>
             <td> {{ item.telefone }} </td>
-            <td class="text-center"><a class='btn btn-info btn-xs' href="/inicial/fornecedor/{{item.id}}"><span class="glyphicon glyphicon-edit"></span> Editar</a> 
+            <td class="text-center"><a class='btn btn-info btn-xs' href="/inicial/fornecedor/{{item.id}}"><span class="glyphicon glyphicon-edit"></span> Editar</a> </td>
+                <td>
+                    <a href="/inicial/fornecedor/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a>
 
-                <a href="/inicial/fornecedor/{{item.id}}/deletar" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                </td>
         </tr>
         {% endfor %}
     </table>

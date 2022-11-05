@@ -22,7 +22,7 @@
     {% extends "base.html"%}
     {% block content %}
     {% for item in pedido %}
-    <form class="boxpedidocadastrado" action="/inicial/pedido/{{ item.id}}/editar" method="post">
+    <form class="boxpedidocadastrado" action="/inicial/pedido/{{item.id}}/editar" method="post">
         <div class="container register-form">
             <div class="form">
                 <div class="note">
@@ -44,41 +44,44 @@
                                 <div>
                                     <label> Cliente </label>
                                     {% for item in pedido %}
-                                    <input class="form-control" type="text" id="clinica" value="{{item.clinica}}"
-                                        readonly>
+                                    <input class="form-control" type="text" name="cliente" value="{{item.clinica}}">
                                     {% endfor %}
                                     </select>
                                 </div>
                                 <div>
                                     <label> Paciente </label>
                                     {% for item in pedido %}
-                                    <input class="form-control" type="text" class="paciente" name="paciente"
-                                        value="{{item.paciente}}" readonly>
+                                    <input class="form-control" type="text" name="paciente"
+                                        value="{{item.paciente}}" >
                                     {% endfor %}
                                 </div>
                                 <div>
                                     <label> Serviço </label>
                                     {% for item in pedido %}
-                                    <input class="form-control" type="text" class="servico" name="servico"
-                                        value="{{item.servico}}" readonly>
+                                    <input class="form-control" type="text"  name="servico"
+                                        value="{{item.servico}}" >
                                     {% endfor %}
                                 </div>
                                 <div>
                                     <label> Valor </label>
                                     {% for item in pedido %}
-                                    <input class="form-control" type="text" class="valor" name="valor"
-                                        value="{{item.valor}}" readonly>
-                                    {% endfor %}
+                                    <input class="form-control" type="text" name="valor"
+                                        value="{{item.valor}}" >
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <button class="btnSubmitShow" type="submit" onclick="finalizar_pedido()"> Finalizar </button>
-
-                    <button type="submit" class="btnSubmitShow">Confirmar e Salvar</button>
-                    <button class='btnCancelShow'>
-                        <a class="anchorShow" href="/inicial/lista/pedido"> Ir para Lista</a>
-                    </button>
+                        <!-- <button class="btnSubmitShow" type="submit" onclick="finalizar_pedido()"> Finalizar </button> -->
+                        
+                        <button type="submit" class="btnSubmitShow">
+                            <a class ="anchorShow" href="/inicial/pedido/{{item.id}}"> 
+                                Confirmar e Salvar
+                            </a>  
+                        </button>
+                        <button class='btnCancelShow'>
+                            <a class="anchorShow" href="/inicial/lista/pedido"> Ir para Lista</a>
+                        </button>
+                        {% endfor %}
 
     </form>
     {% endblock %}

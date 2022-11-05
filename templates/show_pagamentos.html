@@ -18,7 +18,12 @@
     {% extends "base.html"%}
     {% block content %}
 
-    <form class="boxservico" action="edita_pagamentos" method="POST">
+    {% for item in pagamentos %}
+
+    <form class="boxservico" action="/inicial/pagamentos/{{item.id}}/editar" method="POST">
+        {% endfor %}
+
+
         <div class="container register-form">
             <div class="form">
                 <div class="note">
@@ -46,7 +51,7 @@
                                     <label> Cliente </label>
                                     {% for item in pagamentos %}
                                     <input type="text" name="cliente" value="{{item.nome_clinica}}"
-                                        class="form-control">
+                                        class="form-control" readonly>
                                     {% endfor %}
                                 </div>
                                 <div>
@@ -60,7 +65,7 @@
                             <br>
                         </div>
                         <button type="submit" class="btnSubmitShow">
-                            <a class ="anchorShow" href="/inicial/pagamentos/{{item.id}}/editar"> 
+                            <a class ="anchorShow" href="/inicial/pagamentos/{{item.id}}"> 
                                 Confirmar e Salvar
                             </a>    
                             {% endfor %}

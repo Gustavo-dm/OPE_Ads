@@ -18,7 +18,10 @@
 <body>
     {% extends "base.html"%}
     {% block content %}
-    <form class="boxcliente" action="edita_clientes" method="post">
+    {% for item in cliente %}
+
+    <form class="boxcliente" action="/inicial/cliente/{{item.id}}/editar" method="POST">
+        {% endfor %}
         <div class="container register-form">
             <div class="form">
                 <div class="note">
@@ -33,74 +36,82 @@
                                     <div>
                                         <label> Número cliente </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" id="num_cliente" value="{{item.id}}" readonly>
+                                        <input class="form-control" type="text" id="num_cliente" value="{{item.id}}"
+                                            readonly>
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Cliente </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" id="cliente" value="{{item.nome_clinica}}" readonly>
+                                        <input class="form-control" type="text" name ="cliente" 
+                                            value="{{item.nome_clinica}}" >
                                         {% endfor %}
                                         </select>
                                     </div>
                                     <div>
                                         <label> Endereço </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="endereco" name="endereco" value="{{item.endereco}}"
-                                            readonly>
+                                        <input class="form-control" type="text" name="endereco"
+                                            value="{{item.endereco}}" >
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Número </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="numero" name="numero" value="{{item.numero}}"
-                                            readonly>
+                                        <input class="form-control" type="text" name="numero" value="{{item.numero}}"
+                                            >
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Complemento </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="complemento" name="complemento"
-                                            value="{{item.complemento}}" readonly>
+                                        <input class="form-control" type="text" name="complemento"
+                                            value="{{item.complemento}}" >
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Bairro </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="bairro" name="bairro" value="{{item.bairro}}"
-                                            readonly>
+                                        <input class="form-control" type="text" name="bairro" value="{{item.bairro}}"
+                                            >
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Cidade </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="cidade" name="cidade" value="{{item.cidade}}"
-                                            readonly>
+                                        <input class="form-control" type="text" name="cidade" value="{{item.cidade}}"
+                                            >
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Estado </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="estado" name="estado" value="{{item.estado}}"
-                                            readonly>
+                                        <input class="form-control" type="text" name="estado" value="{{item.estado}}"
+                                            >
                                         {% endfor %}
                                     </div>
                                     <div>
                                         <label> Telefone </label>
                                         {% for item in cliente %}
-                                        <input class="form-control" type="text" class="telefone" name="telefone" value="{{item.telefone}}"
-                                            readonly>
-                                        {% endfor %}
+                                        <input class="form-control" type="text" name="telefone"
+                                            value="{{item.telefone}}" >
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <br>
                     </div>
-                                    <button type="submit" class="btnSubmitShow">Confirmar e Salvar</button>
-                                    <button class='btnCancelShow'>
-                                        <a class="anchorShow" href="/inicial/lista/clientes"> Ir para Lista</a>
-                                    </button>
+
+                    <button type="submit" class="btnSubmitShow">
+                        <a class="anchorShow" href="/inicial/cliente/{{item.id}}">
+                            Confirmar e Salvar
+                        </a>
+                    </button>
+                    <button class='btnCancelShow'>
+                        <a class="anchorShow" href="/inicial/lista/clientes"> Ir para Lista</a>
+                    </button>
+                    {% endfor %}
+
     </form>
     {% endblock %}
 
