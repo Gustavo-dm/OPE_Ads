@@ -137,12 +137,10 @@ def get_pedido():
 @app.route('/inicial/pedido', methods=['POST'], endpoint='post_pedido')
 @login_required
 def post_pedido():
-    cliente = request.form.get('cliente')
-    paciente = request.form.get('paciente', '')
-    servico_valor = request.form.get('servico')
-    if servico_valor != 'Selecione':
-        servico = servico_valor.split(';')[0]
-        valor = servico_valor.split('; ')[1]
+    cliente = request.form['cliente']
+    paciente = request.form['paciente']
+    servico = request.form['servico']
+    valor = request.form['valor']
     if cliente:
         pedido = Pedidos(cliente, paciente, servico, valor)
         session.add(pedido)
@@ -157,7 +155,7 @@ def post_pedido():
            methods=['GET'], endpoint='show_pedido')
 @login_required
 def show_pedido(nid):
-    pedido = Pedidos.query.filter_by(id=nid).all()
+    pedido = Pedidos.query.filter_by(id=nid).first()
     session.commit()
     return render_template('show_pedido.html', pedido=pedido)
 
@@ -220,20 +218,23 @@ def get_cliente():
 @app.route('/inicial/cliente', methods=['POST'], endpoint='post_cliente')
 @login_required
 def post_cliente():
-    clinica = request.form.get('clinica', '')
-    endereco = request.form.get('endereco', '')
-    numero = request.form.get('numero', '')
-    complemento = request.form.get('complemento', '')
-    bairro = request.form.get('bairro', '')
-    cidade = request.form.get('cidade', '')
-    estado = request.form.get('estado', '')
-    telefone = request.form.get('telefone', '')
+    clinica = request.form['clinica']
+    endereco = request.form['endereco']
+    numero = request.form['numero']
+    complemento = request.form['complemento']
+    bairro = request.form['bairro']
+    cidade = request.form['cidade']
+    estado = request.form['estado']
+    telefone = request.form['telefone']
     if clinica:
         cliente = Clientes(clinica, endereco, numero,
                            complemento, bairro, cidade, estado, telefone)
         session.add(cliente)
         session.commit()
         session.flush()
+        url = f"/inicial/cliente/{cliente.id}"
+        return redirect(url, code=302)
+
     return render_template('show_cliente.html')
 
 
@@ -299,8 +300,8 @@ def get_servico():
 @app.route('/inicial/servico', methods=['POST'], endpoint='post_servico')
 @login_required
 def post_servico():
-    servico = request.form.get('servico', '')
-    valor = request.form.get('valor', '')
+    servico = request.form['servico']
+    valor = request.form['valor']
     if servico:
         servicos = Servicos(servico, valor)
         session.add(servicos)
@@ -363,14 +364,14 @@ def get_fornecedor():
            methods=['POST'], endpoint='post_fornecedor')
 @login_required
 def post_fornecedor():
-    fornecedor = request.form.get('fornecedor', '')
-    endereco = request.form.get('endereco', '')
-    numero = request.form.get('numero', '')
-    complemento = request.form.get('complemento', '')
-    bairro = request.form.get('bairro', '')
-    cidade = request.form.get('cidade', '')
-    estado = request.form.get('estado', '')
-    telefone = request.form.get('telefone', '')
+    fornecedor = request.form['fornecedor']
+    endereco = request.form['endereco']
+    numero = request.form['numero']
+    complemento = request.form['complemento']
+    bairro = request.form['bairro']
+    cidade = request.form['cidade']
+    estado = request.form['estado']
+    telefone = request.form['telefone']
     if fornecedor:
         forne = Fornecedores(fornecedor, endereco, numero,
                              complemento, bairro, cidade, estado, telefone)
@@ -447,16 +448,15 @@ def get_compras():
            methods=['POST'], endpoint='post_compras')
 @login_required
 def post_compras():
-    fornecedor = request.form.get('fornecedor', '')
-    descricao = request.form.get('valor', '')
-    if descricao:
-        compras = Compras(fornecedor, descricao)
-        session.add(compras)
-        session.commit()
-        session.flush()
-        url = f"/inicial/compras/{compras.id}"
-        return redirect(url, code=302)
-    return render_template('show_compras.html')
+    fornecedor = request.form['fornecedor']
+    descricao = request.form['valor']
+    compras = Compras(fornecedor, descricao)
+    session.add(compras)
+    session.commit()
+    session.flush()
+    url = f"/inicial/compras/{compras.id}"
+    return redirect(url, code=302)
+    # return render_template('show_compras.html')
 
 
 @app.route('/inicial/compras/<int:nid>',
@@ -513,8 +513,8 @@ def get_pagamento():
            methods=['POST'], endpoint='post_pagamento')
 @login_required
 def post_pagamento():
-    cliente = request.form.get('cliente', '')
-    valor = request.form.get('valor', '')
+    cliente = request.form['cliente']
+    valor = request.form['valor']
     data = datetime.now()
     if cliente:
         pagamentos = Pagamentos(cliente, valor, data)
