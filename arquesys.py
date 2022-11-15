@@ -139,8 +139,10 @@ def get_pedido():
 def post_pedido():
     cliente = request.form['cliente']
     paciente = request.form['paciente']
-    servico = request.form['servico']
-    valor = request.form['valor']
+    servico_valor = request.form['servico']
+    if servico_valor != 'Selecione':
+        servico = servico_valor.split(';')[0]
+        valor = servico_valor.split('; ')[1]
     if cliente:
         pedido = Pedidos(cliente, paciente, servico, valor)
         session.add(pedido)
@@ -155,7 +157,7 @@ def post_pedido():
            methods=['GET'], endpoint='show_pedido')
 @login_required
 def show_pedido(nid):
-    pedido = Pedidos.query.filter_by(id=nid).first()
+    pedido = Pedidos.query.filter_by(id=nid).all()
     session.commit()
     return render_template('show_pedido.html', pedido=pedido)
 
