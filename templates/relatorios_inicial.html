@@ -1,54 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Relatório </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
 
-    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" 
-        rel="Stylesheet"
-        type="text/css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  
-    <script language="javascript">
-        $(document).ready(function () {
-            $("#inicial").datepicker({
-                showOn: "button",
-                buttonImage: "./icons8-calendar-48.png",    
-                buttonImageOnly: true
-            });
-            $("#final").datepicker({
-                showOn: "button",
-                buttonImage: "./icons8-calendar-48.png",    
-                buttonImageOnly: true
-            });
-        });
-    </script>
-  
-    <style type="text/css">
-        .ui-datepicker-trigger { 
-            max-height: 28px;
-        }
-    </style>
+
 </head>
+
 <body>
+    {% extends "base.html"%}
+
+    {% block content %}
     <form class="form-group-relatorio" method="post" action="/inicial/relatorios">
-        Clínica:
-        <select class="clinica" name="clinica">
-            <option></option>
-            {% for item in clinica %}
-            <option> {{item.nome_clinica}} </option>
-            {% endfor %}
-        </select>
-        Período Inicial:
-        <input id="inicial" name="inicial" type="text" class="form-control">
-        Período Final:
-        <input id="final" name="final" type="text" class="form-control">
-        <input type="submit" placeholder="Visualizar">
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>
+                        Relatórios:
+                    </p>
+                </div>
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div>
+                                    <label> Clinica :</label>
+                                    <select class="clinica" name="clinica" value="{item.nome_clinica}">
+                                        <option disabled> Selecione o Cliente * </option>
+
+                                        {% for item in clinica %}
+                                        <option> {{item.nome_clinica}} </option>
+                                        {% endfor %}
+                                    </select>
+                                    <div>
+
+                                    <label>
+                                        Período Inicial:
+                                    </label>
+                                    </div>
+                                    <div>
+
+                                        <input id=" inicial" name="inicial" type="datetime-local" class="form-control">
+                                        <label for="final"> Período Final: </label>
+                                        
+                                        <input id="final" name="final" type="datetime-local" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <input type="submit" class="btnSubmitShow" placeholder="Visualizar">
+                <button class="btnCancel"  ><a href="/inicial" class="btnCancel">Cancelar </a></button>
+
+                <!-- <button class="btnSubmit"> Enviar por email</button>
+                <button class="btnSubmit"> Enviar por whatsapp</button> -->
     </form>
-    <button type="text"> Enviar por email</button>
-    <button type="text"> Enviar por whatsapp</button>
+    {%endblock%}
+
 </body>
+
 </html>

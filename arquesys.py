@@ -1,11 +1,11 @@
 from __init__ import create_app
 from passlib.hash import sha256_crypt
-# import pdfkit
+import pdfkit
 from datetime import datetime
-from flask import flash, render_template, request, redirect
-from flask import session as login_session
+from flask import flash, render_template,make_response, request, redirect, session as login_session
 from models import Usuarios, Pedidos, Contatos, Compras, Clientes, Servicos, Fornecedores, Pagamentos
 from db import session
+from sqlalchemy import and_
 
 app = create_app()
 
@@ -70,6 +70,7 @@ def criarusuario():
             return render_template('login.html')
         except Exception as error:
             return 'Problema de inserção no banco de dados: ' + str(error)
+
 
 
 @app.route('/logout', endpoint='logout')
@@ -576,21 +577,23 @@ def get_relatorios():
     return render_template('relatorios_inicial.html', clinica=clinica)
 
 
-# @app.route('/inicial/relatorios',
-#            methods=['POST'], endpoint='post_relatorios')
-# @login_required
-# def post_relatorios():
-#     clinica = request.form.get('clinica', '')
-#     inicio = request.form.get('inicial', '')
-#     fim = request.form.get('final', '')
-#     data = session.query(Pedidos).filter(Pedidos.data_finalizacao)
+@app.route('/inicial/relatorios',
+           methods=['POST'], endpoint='post_relatorios')
+@login_required
+def post_relatorios():
+    clinica = request.form['clinica']
+    inicio = request.form['inicial']
+    fim = request.form['final']
+    data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica))
+    html = render_template('relatorio_layout.html', data=data)
 
-#     html = render_template('relatorio_layout.html', data=data)
-#     pdf = pdfkit.from_string(html, False)
-#     response = make_response(pdf)
-#     response.headers["Content-Type"] = "application/pdf"
-#     response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
-#     return response
+    config = pdfkit.configuration(wkhtmltopdf="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
+    pdf = pdfkit.from_string(html, False,configuration=config,css='./static/forms.css')
+    pdf = pdfkit.from_file(html,'out.pdf', False, configuration=config, css='./static/forms.css',)
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
+    return response
 
 
 if __name__ == "__main__":

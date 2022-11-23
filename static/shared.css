@@ -22,3 +22,10 @@
   opacity: 1;
   background-color: rgb(205, 205, 207);
   }
+
+@media screen and (max-width: 600px) {
+.nav{
+  width: 100%;
+}
+
+}

@@ -73,13 +73,13 @@
                         </div>
                         <!-- <button class="btnSubmitShow" type="submit" onclick="finalizar_pedido()"> Finalizar </button> -->
                         
-                        <button type="submit" class="btnSubmitShow">
+                        <button type="submit" class="btnSubmitShow" onclick="finalizar_pedido()">
                             <a class ="anchorShow" href="/inicial/pedido/{{item.id}}"> 
                                 Confirmar e Salvar
                             </a>  
                         </button>
                         <button class='btnCancelShow'>
-                            <a class="anchorShow" href="/inicial/lista/pedido"> Ir para Lista</a>
+                            <a class="anchorShow" href="/inicial/lista/pedidos"> Ir para Lista</a>
                         </button>
                         {% endfor %}
 
