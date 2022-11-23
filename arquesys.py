@@ -168,11 +168,10 @@ def show_pedido(nid):
 @login_required
 def finaliza_pedido(nid):
     now = datetime.now()
-    print(now)
-   
+    finalizado = True
     
     session.query(Pedidos).filter_by(id=nid).update({
-        'status': True,
+        'status': finalizado,
         'data_finalizacao': now
     })
     session.commit()
@@ -587,7 +586,7 @@ def post_relatorios():
     clinica = request.form['clinica']
     inicio = request.form['inicial']
     fim = request.form['final']
-    data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica))
+    data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica,Pedidos.status==1))
     html = render_template('relatorio_layout.html', data=data)
 
     config = pdfkit.configuration(wkhtmltopdf="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
