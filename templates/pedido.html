@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedidos</title>
-    <script src="../static/pedido.js"></script>
-    <link rel="stylesheet" href="../static/forms.css">
+    <script src="{{ url_for('static', filename='forms.css') }}  "></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -52,7 +52,7 @@
 
 
                             <button type="submit" class="btnSubmit">Cadastrar</button>
-                            <button class="btnCancel"  ><a href="/inicial" class="btnCancel">Cancelar </a></button>
+                            <button class="btnCancel"><a href="/inicial" class="btnCancel">Cancelar </a></button>
                         </div>
                     </div>
     </form>

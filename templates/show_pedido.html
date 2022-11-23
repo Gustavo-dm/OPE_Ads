@@ -14,7 +14,7 @@
     <title>Pedido Detalhes </title>
 
 
-    <script src="../static/show_pedido.js"></script>
+    <script src="{{ url_for('static', filename='forms.css') }}  ""></script>
 
 </head>
 
@@ -73,7 +73,7 @@
                         </div>
                         <!-- <button class="btnSubmitShow" type="submit" onclick="finalizar_pedido()"> Finalizar </button> -->
                         
-                        <button type="submit" class="btnSubmitShow" onclick="finalizar_pedido()">
+                        <button type="submit" class="btnSubmitShow" >
                             <a class ="anchorShow" href="/inicial/pedido/{{item.id}}"> 
                                 Confirmar e Salvar
                             </a>  
@@ -81,7 +81,22 @@
                         <button class='btnCancelShow'>
                             <a class="anchorShow" href="/inicial/lista/pedidos"> Ir para Lista</a>
                         </button>
+
+                 
                         {% endfor %}
+
+    </form>
+    <br>
+    <br>
+    {% for item in pedido %}
+    <form action="/inicial/pedido/{{item.id}}/finalizar">
+        <button type="submit" class="btnSubmitShow">
+            
+            <a class ="anchorShow""> 
+                Finalizar Pedido
+            </a> 
+        </button>
+        {% endfor %}
 
     </form>
     {% endblock %}

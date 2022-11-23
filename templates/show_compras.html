@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compras Detalhes </title>
     <script src="../static/show_compras.js"></script>
-    <link rel="stylesheet" href="../static/forms.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
+
     <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -21,23 +22,48 @@
 
     {% for item in compras %}
     <form class="boxcompras" action="/inicial/compras/{{item.id}}" method="post">
-        {% endfor %}
-        <div>
-            <label> Fornecedor </label>
-            {% for item in compras %}
-            <input type="text" id="fornecedor" value="{{item.}}" readonly>
-            {% endfor %}
-            </select>
+        <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Compras</p>
+                </div>
+
+                <div class="form-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group" {% endfor %} <div>
+                                <label> Fornecedor </label>
+                                {% for item in compras %}
+                                <input type="text" class="form-control" value="{{item.nome_forne}}" readonly>
+                                {% endfor %}
+                                </select>
+                            </div>
+                            <div>
+                                <label> Descrição </label>
+                                {% for item in compras %}
+                                <input type="text" class="form-control" name="valor" value="{{item.descricao}}"
+                                    readonly>
+                                </div>
+                            </div>
+                            </div>
+                            <br>
+
+                            <button type="submit" class="btnSubmitShow">
+                                <a class="anchorShow" href="/inicial/compras/{{item.id}}">
+                                    Confirmar e Salvar
+                                </a>
+                            </button>
+                            <button class='btnCancelShow'>
+                                <a class="anchorShow" href="/inicial/lista/compras"> Ir para Lista</a>
+                            </button>
+                            </button>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label> Descrição </label>
-            {% for item in compras %}
-            <input type="text" class="valor" name="valor" value="{{item.descricao}}" readonly>
-            {% endfor %}
-        </div>
-        <button class='btn btn-info btn-xs'>
-            <a href="/inicial/lista/compras"> Ok </a>
-        </button>
     </form>
     {% endblock %}
 

@@ -27,7 +27,7 @@ class Pedidos(db.Model):
     paciente = db.Column(db.String(100), default='')
     servico = db.Column(db.String(100), default='')
     valor = db.Column(db.Float, default=0.0)
-    status = db.Column(db.Boolean, default=0)
+    status = db.Column(db.Boolean, default=False)
     data_finalizacao = db.Column(db.Date)
 
     def __init__(self, clinica, paciente, servico, valor):

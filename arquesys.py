@@ -156,24 +156,27 @@ def post_pedido():
 
 @app.route('/inicial/pedido/<int:nid>',
            methods=['GET'], endpoint='show_pedido')
-@login_required
+# @login_required
 def show_pedido(nid):
     pedido = Pedidos.query.filter_by(id=nid).all()
     session.commit()
     return render_template('show_pedido.html', pedido=pedido)
 
 
-@app.route('/inicial/pedido/<int:nid>',
-           methods=['POST'], endpoint='finaliza_pedido')
+@app.route('/inicial/pedido/<int:nid>/finalizar',
+           methods=['GET','POST'], endpoint='finaliza_pedido')
 @login_required
 def finaliza_pedido(nid):
     now = datetime.now()
+    print(now)
+   
+    
     session.query(Pedidos).filter_by(id=nid).update({
-        'status': 1,
-        'data_finalizacao': now.strftime("%Y/%m/%d, %H:%M:%S")
+        'status': True,
+        'data_finalizacao': now
     })
     session.commit()
-    return show_pedido(nid)
+    return redirect('/inicial/lista/pedidos', code=302)
 
 
 @app.route('/inicial/lista/pedidos', methods=['GET'], endpoint='lista_pedido')
