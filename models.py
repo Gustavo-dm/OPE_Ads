@@ -1,5 +1,5 @@
 from db import db
-import datetime
+from datetime import datetime
 
 
 class Contatos():
@@ -22,7 +22,7 @@ class Pedidos(db.Model):
     __tablename__ = "pedidos"
 
     id = db.Column(db.Integer, primary_key=True)
-    data_criacao = db.Column(db.DateTime, nullable=False)
+    data_criacao = db.Column(db.Date, nullable=False)
     clinica = db.Column(db.String(100), nullable=False)
     paciente = db.Column(db.String(100), default='')
     servico = db.Column(db.String(100), default='')
@@ -31,7 +31,7 @@ class Pedidos(db.Model):
     data_finalizacao = db.Column(db.Date)
 
     def __init__(self, clinica, paciente, servico, valor):
-        self.data_criacao = datetime.datetime.now()
+        self.data_criacao = datetime.now()
         self.clinica = clinica
         self.paciente = paciente
         self.servico = servico

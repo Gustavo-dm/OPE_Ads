@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+/*
+#################################################
+This is part of the UI framework being developed.
+#################################################
+*/
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    font-family: "Roboto", sans-serif;
+}
+
+.title {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 40px;
+    font-weight: 300;
+    color: #636983;
+}
+
+.wrapper {
+    background-color: #F6F8FF;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.wrapper .line {
+    width: 50%;
+    margin: 50px auto 0 auto;
+    height: 1px;
+    background-color: #c3d2e3;
+}
+
+.table {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.table .header {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.table table {
+    width: 100%;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 25px 20px -25px rgba(0, 0, 0, 0.1);
+}
+
+.table table input.search {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 0;
+    outline: 1px solid #efefef;
+    background: #fbfbfb;
+    transition: all 0.2s;
+}
+
+.table table input.search:focus {
+    outline: 2px solid #1f74ff;
+    background: white;
+}
+
+.table table thead {
+    border-spacing: 0;
+}
+
+.table table thead td {
+    font-size: 18px;
+    font-weight: 600;
+    color: #666;
+    padding: 10px;
+}
+
+.table table thead tr:nth-child(1) {
+    background-color: #fbfbfb;
+    background: linear-gradient(180deg, #fbfbfb 0%, #fbfbfb 89%, #ededed 100%);
+}
+
+.table table thead tr:nth-child(1) td:nth-child(1) {
+    border-radius: 10px 0 0 0;
+}
+
+.table table thead tr:nth-child(1) td:nth-last-child(1) {
+    border-radius: 0 10px 0 0;
+}
+
+.table table tbody tr {
+    transition: all 0.2s;
+}
+
+.table table tbody tr td {
+    padding: 10px;
+    color: #666;
+}
+
+.table table tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -15px rgba(0, 0, 0, 0.04);
+    background-color: #ededed1c;
+}
+
+.table table tbody tr.success td {
+    color: #46c93a;
+    background: #e8f5e7;
+}
+
+.table table tbody tr.primary td {
+    color: #1f74ff;
+    background: #d4e4ff;
+}
+
+.table table tfoot tr td {
+    border-radius: 0 0 10px 10px;
+}
+
+.table table tfoot tr td {
+    padding: 3px 10px;
+    background-color: #fbfbfb;
+    background: linear-gradient(0deg, #fbfbfb 0%, #fbfbfb 89%, #ededed 100%);
+    text-align: right;
+}
+
+
+@media (max-width: 700px) {
+    .table {
+        width: 90%;
+    }
+}

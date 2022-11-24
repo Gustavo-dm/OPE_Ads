@@ -12,8 +12,8 @@ session = Session()
 db = SQLAlchemy()
 
 
-handler = logging.FileHandler('app.log')
-handler.setLevel(logging.DEBUG)
+# handler = logging.FileHandler('app.log')
+# handler.setLevel(logging.DEBUG)
 
-logging.basicConfig()
-logging.getLogger('sqlalchemy.engine').addHandler(handler)
+# logging.basicConfig()
+# logging.getLogger('sqlalchemy.engine').addHandler(handler)
