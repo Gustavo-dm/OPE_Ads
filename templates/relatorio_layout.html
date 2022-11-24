@@ -20,13 +20,7 @@
                 <table cellspacing="0" cellpadding="0">
                     <thead>
                         <tr>
-                            <td colspan="2">
-                                <font class="header">{% for item in data %}
-                                    {{item.clinica}}
-                                    {% endfor %}</font>
-                            </td>
-
-                            </td>
+                        
                         </tr>
                         <tr>
                             <td>Id</td>
@@ -34,8 +28,9 @@
                             <td>Serviço</td>
                             <td>Valor</td>
                             <td>Data Criação</td>
-
                             <td>Data Finalização</td>
+                            <td>Clinica</td>
+
 
                         </tr>
                     </thead>
@@ -48,6 +43,8 @@
                             <td> {{ item.valor }} </td>
                             <td> {{ item.data_criacao }} </td>
                             <td> {{ item.data_finalizacao }} </td>
+                            <td colspan="100%"  > {{ item.clinica }} </td>
+
 
                         </tr>
                         {% endfor %}
