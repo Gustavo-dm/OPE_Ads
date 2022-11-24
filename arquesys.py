@@ -1,9 +1,8 @@
 from __init__ import create_app
 from passlib.hash import sha256_crypt
 import pdfkit
-from reportlab.pdfgen import canvas
 from datetime import datetime
-from flask import flash, render_template,make_response, request, redirect, session as login_session
+from flask import flash, render_template, make_response, request, redirect, session as login_session
 from models import Usuarios, Pedidos, Contatos, Compras, Clientes, Servicos, Fornecedores, Pagamentos
 from db import session
 from sqlalchemy import and_
@@ -588,12 +587,14 @@ def post_relatorios():
     fim = request.form['final']
     data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica,Pedidos.status==1))
     html = render_template('relatorio_layout.html', data=data)
-
-    pdf = pdfkit.from_string(html, output_path=False)
-    response = make_response(pdf)
-    response.headers["Content-Type"] = "application/pdf"
-    response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
-    return response
+    print('aqui2')
+    
+    pdf = pdfkit.from_string(html, False)
+    print('aqui3')
+    respo = make_response(pdf)
+    respo.headers["Content-Type"] = "application/pdf"
+    respo.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
+    return respo
 
 
 if __name__ == "__main__":
