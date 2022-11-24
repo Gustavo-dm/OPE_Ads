@@ -2,10 +2,11 @@ from __init__ import create_app
 from passlib.hash import sha256_crypt
 import pdfkit
 from datetime import datetime
-from flask import flash, render_template,make_response, request, redirect, session as login_session
+from flask import flash, render_template,make_response, request, redirect,send_file, session as login_session
 from models import Usuarios, Pedidos, Contatos, Compras, Clientes, Servicos, Fornecedores, Pagamentos
 from db import session
 from sqlalchemy import and_
+import os
 
 app = create_app()
 
@@ -165,7 +166,7 @@ def show_pedido(nid):
 
 @app.route('/inicial/pedido/<int:nid>/finalizar',
            methods=['GET','POST'], endpoint='finaliza_pedido')
-@login_required
+@login_required 
 def finaliza_pedido(nid):
     now = datetime.now()
     finalizado = True
@@ -580,22 +581,25 @@ def get_relatorios():
 
 
 @app.route('/inicial/relatorios',
-           methods=['POST'], endpoint='post_relatorios')
+           methods=['GET','POST'], endpoint='post_relatorios')
 @login_required
 def post_relatorios():
+
+    config = pdfkit.configuration(wkhtmltopdf="C:/Dev/tcc/wkhtmltopdf/bin/wkhtmltopdf.exe")
+
     clinica = request.form['clinica']
     inicio = request.form['inicial']
     fim = request.form['final']
-    data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica,Pedidos.status==1))
-    html = render_template('relatorio_layout.html', data=data)
 
-    config = pdfkit.configuration(wkhtmltopdf="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
-    pdf = pdfkit.from_string(html, False,configuration=config,css='./static/forms.css')
-    pdf = pdfkit.from_file(html,'out.pdf', False, configuration=config, css='./static/forms.css',)
+    data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica,Pedidos.status==1)).all()
+    html = render_template('relatorio_layout.html', data=data)
+    pdf = pdfkit.from_string(html, False,configuration=config,css='static/relatorio.css')
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
     response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"
     return response
+
+
 
 
 if __name__ == "__main__":

@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='forms.css') }}  ">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title> Relatório </title>
 </head>
+
 <body>
-    
-    <div class="container">
-        <div class="row col-md-6 col-md-offset-2 custyle">
-    <table class="table table-striped custab" >
+    <!-- 
+
+    <table>
         <tr>
             <th> Clínica</th>
             {% for item in data %}
-            <td> {{item.nome_clinica}} </td>
+            <td> {{item.clinica}} </td>
             {% endfor %}
         </tr>
         <tr>
@@ -36,6 +33,50 @@
             <td> {{ item.valor }} </td>
         </tr>
         {% endfor %}
-    </table>
+    </table> -->
+    <div class="wrapper">
+        <div class="title">
+            Fechamento <div class="line"></div>
+        </div>
+        <div class="container">
+            <div class="table">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <td colspan="2">
+                                <font class="header">{% for item in data %}
+                                    {{item.clinica}}
+                                    {% endfor %}</font>
+                            </td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Id</td>
+                            <td>Paciente</td>
+                            <td>Serviço</td>
+                            <td>Valor</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr>
+                            <td> {{ item.id }} </td>
+                            <td> {{ item.paciente }} </td>
+                            <td> {{ item.servico }} </td>
+                            <td> {{ item.valor }} </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="100%">
+                                <div </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
