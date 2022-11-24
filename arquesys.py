@@ -1,6 +1,7 @@
 from __init__ import create_app
 from passlib.hash import sha256_crypt
 import pdfkit
+from reportlab.pdfgen import canvas
 from datetime import datetime
 from flask import flash, render_template,make_response, request, redirect, session as login_session
 from models import Usuarios, Pedidos, Contatos, Compras, Clientes, Servicos, Fornecedores, Pagamentos
@@ -168,7 +169,7 @@ def show_pedido(nid):
 @login_required
 def finaliza_pedido(nid):
     now = datetime.now()
-    finalizado = True
+    finalizado = 1
     
     session.query(Pedidos).filter_by(id=nid).update({
         'status': finalizado,
@@ -372,14 +373,14 @@ def post_fornecedor():
     fornecedor = request.form['fornecedor']
     endereco = request.form['endereco']
     numero = request.form['numero']
-    complemento = request.form['complemento']
+    # complemento = request.form['complemento']
     bairro = request.form['bairro']
     cidade = request.form['cidade']
     estado = request.form['estado']
     telefone = request.form['telefone']
     if fornecedor:
         forne = Fornecedores(fornecedor, endereco, numero,
-                             complemento, bairro, cidade, estado, telefone)
+                             bairro, cidade, estado, telefone)
         session.add(forne)
         session.commit()
         session.flush()
@@ -412,7 +413,7 @@ def edita_fornecedor(nid):
     fornecedor = request.form['fornecedor']
     endereco = request.form['endereco']
     numero = request.form['numero']
-    complemento = request.form['complemento']
+    #complemento = request.form['complemento']
     bairro = request.form['bairro']
     cidade = request.form['cidade']
     estado = request.form['estado']
@@ -421,7 +422,6 @@ def edita_fornecedor(nid):
         'nome_forne': fornecedor,
         'endereco': endereco,
         'numero': numero,
-        'complemento': complemento,
         'bairro': bairro,
         'cidade': cidade,
         'estado': estado,
@@ -575,23 +575,21 @@ def deleta_pagamentos(nid):
 @app.route('/inicial/relatorios', methods=['GET'], endpoint='get_relatorios')
 @login_required
 def get_relatorios():
-    clinica = Clientes.query.all()
-    return render_template('relatorios_inicial.html', clinica=clinica)
+    cliente = Clientes.query.all()
+    return render_template('relatorios_inicial.html', cliente=cliente)
 
 
 @app.route('/inicial/relatorios',
            methods=['POST'], endpoint='post_relatorios')
 @login_required
 def post_relatorios():
-    clinica = request.form['clinica']
+    clinica = request.form['cliente']
     inicio = request.form['inicial']
     fim = request.form['final']
     data = session.query(Pedidos).filter(and_(Pedidos.data_finalizacao.between(inicio, fim), Pedidos.clinica==clinica,Pedidos.status==1))
     html = render_template('relatorio_layout.html', data=data)
 
-    config = pdfkit.configuration(wkhtmltopdf="C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
-    pdf = pdfkit.from_string(html, False,configuration=config,css='./static/forms.css')
-    pdf = pdfkit.from_file(html,'out.pdf', False, configuration=config, css='./static/forms.css',)
+    pdf = pdfkit.from_string(html, output_path=False)
     response = make_response(pdf)
     response.headers["Content-Type"] = "application/pdf"
     response.headers["Content-Disposition"] = "inline; filename=fechamento.pdf"

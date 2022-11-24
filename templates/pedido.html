@@ -29,11 +29,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" name="paciente" class="form-control" placeholder="Paciente *">
-
                             </div>
                             <div class="form-group">
                                 <select name="cliente" class="form-control">
-                                    <option disabled> Selecione o Cliente * </option>
+                                    <option selected disabled> Selecione o Cliente * </option>
                                     {% for item in clientes %}
                                     <option> {{ item.nome_clinica }} </option>
                                     {% endfor %}
@@ -41,8 +40,7 @@
                             </div>
                             <div class="form-group">
                                 <select  name="servico" class="form-control">
-                                    <option disabled> Selecione o Serviço * </option>
-
+                                    <option selected disabled> Selecione o Serviço * </option>
                                     {% for item in servicos %}
                                     <option> {{ item.servico }}; {{ item.valor }} </option>
                                     {% endfor %}

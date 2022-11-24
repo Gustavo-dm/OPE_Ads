@@ -33,11 +33,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div>
-                                    <label> Clinica :</label>
-                                    <select class="clinica" name="clinica" value="{item.nome_clinica}">
-                                        <option disabled> Selecione o Cliente * </option>
-
-                                        {% for item in clinica %}
+                                    <label> Cliente :</label>
+                                    <select class="clinica" name="cliente" value="">
+                                        <option selected disabled> Selecione o Cliente * </option>
+                                        {% for item in cliente %}
                                         <option> {{item.nome_clinica}} </option>
                                         {% endfor %}
                                     </select>

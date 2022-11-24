@@ -83,18 +83,16 @@ class Fornecedores(db.Model):
     nome_forne = db.Column(db.String(100), nullable=False)
     endereco = db.Column(db.String(150), default='')
     numero = db.Column(db.Integer, default=0)
-    complemento = db.Column(db.String(150), default='')
     bairro = db.Column(db.String(150), default='')
     cidade = db.Column(db.String(150), default='')
     estado = db.Column(db.String(150), default='')
     telefone = db.Column(db.String(150), default='')
 
-    def __init__(self, nome_forne, endereco, numero, complemento,
+    def __init__(self, nome_forne, endereco, numero,
                  bairro, cidade, estado, telefone):
         self.nome_forne = nome_forne
         self.endereco = endereco
         self.numero = numero
-        self.complemento = complemento
         self.bairro = bairro
         self.cidade = cidade
         self.estado = estado
