@@ -307,7 +307,7 @@ def get_servico():
 @login_required
 def post_servico():
     servico = request.form['servico']
-    valor = request.form['valor']
+    valor = int(request.form['valor'])
     if servico:
         servicos = Servicos(servico, valor)
         session.add(servicos)
@@ -466,7 +466,7 @@ def post_compras():
 
 
 @app.route('/inicial/compras/<int:nid>',
-           methods=['GET'], endpoint='show_compras')
+           methods=['GET','POST'], endpoint='show_compras')
 @login_required
 def show_compras(nid):
     compras = Compras.query.filter_by(id=nid).all()
@@ -603,4 +603,5 @@ def post_relatorios():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port,debug=True)
