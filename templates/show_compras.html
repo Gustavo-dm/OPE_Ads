@@ -34,7 +34,7 @@
                             <div class="form-group" {% endfor %} <div>
                                 <label> Fornecedor </label>
                                 {% for item in compras %}
-                                <input type="text" class="form-control" value="{{item.nome_forne}}" readonly>
+                                <input type="text" class="form-control" value="{{item.nome_forne}}" >
                                 {% endfor %}
                                 </select>
                             </div>
@@ -42,7 +42,7 @@
                                 <label> Descrição </label>
                                 {% for item in compras %}
                                 <input type="text" class="form-control" name="valor" value="{{item.descricao}}"
-                                    readonly>
+                                    >
                                 </div>
                             </div>
                             </div>
